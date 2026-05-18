@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Аналітичний Дашборд: O2O-Платформа Watsons x Хлібна Кава</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chosen Palette: Energetic & Playful (Indigo #3F51B5, Orange #FF5722, Cyan #00BCD4, Crimson #E91E63) -->
+    <!-- Application Structure Plan: The SPA is structured as an executive analytical dashboard. It uses a CSS grid layout to separate key strategic pillars identified in the source reports: 1. Market Context & Stress Factors (Air raids, EVA dominance), 2. The Synergis CRM Workflow (interactive process map), 3. Staff Motivation & Financials (Salary gap & Tax fears), and 4. Operational Resilience (MAF audits & Blackouts). This structure allows stakeholders to digest complex operational, technical, and financial risks non-linearly, enhancing understanding of the MVP's constraints and solutions. -->
+    <!-- Visualization & Content Choices: 1. Market Stress (Air Raids): Donut Chart (Goal: Inform/Compare. Justification: Clearly shows the proportion of 'dead time' vs active time. Library: Chart.js). 2. Staff Motivation: Bar Chart (Goal: Compare. Justification: Visually demonstrates the drastic gap between current salary, market median, and the required 'White Wallet' legal bonus to overcome tax fear. Library: Chart.js). 3. Synergis Workflow: Interactive HTML/CSS Diagram (Goal: Organize. Justification: Maps the specific Buyer-Seller1-Seller2 relationship from the PDF without using prohibited SVG/Mermaid. Method: Tailwind + JS). Confirming NO SVG/Mermaid used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { background-color: #F8F9FA; font-family: 'Segoe UI', Roboto, sans-serif; color: #1F2937; }
+        .chart-container { position: relative; width: 100%; max-width: 600px; margin-left: auto; margin-right: auto; height: 300px; max-height: 400px; }
+        @media (min-width: 768px) { .chart-container { height: 350px; } }
+        .card { background: white; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); padding: 1.5rem; transition: transform 0.2s; }
+        .card:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        .bg-indigo { background-color: #3F51B5; }
+        .text-indigo { color: #3F51B5; }
+        .bg-orange { background-color: #FF5722; }
+        .text-orange { color: #FF5722; }
+        .bg-cyan { background-color: #00BCD4; }
+        .border-indigo { border-color: #3F51B5; }
+        
+        .workflow-step { border: 2px solid #E5E7EB; border-radius: 0.5rem; padding: 1rem; text-align: center; background: #F9FAFB; transition: all 0.3s ease; }
+        .workflow-step.active { border-color: #3F51B5; background: #EEF2FF; box-shadow: 0 4px 6px rgba(63, 81, 181, 0.2); transform: scale(1.02); }
+        .workflow-arrow { font-size: 1.5rem; color: #9CA3AF; text-align: center; margin: 0.5rem 0; transition: color 0.3s ease; }
+        .workflow-arrow.active { color: #FF5722; font-weight: bold; }
+    </style>
+</head>
+<body class="antialiased pb-12">
+
+    <nav class="bg-indigo text-white p-4 sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center">
+            <h1 class="text-xl md:text-2xl font-bold tracking-tight">Synergis O2O: Стратегія та Стрес-Тест</h1>
+            <div class="text-sm font-medium mt-2 md:mt-0 text-indigo-100">
+                Watsons Україна × Хлібна Кава (MVP 2026)
+            </div>
+        </div>
+    </nav>
+
+    <header class="max-w-7xl mx-auto px-4 py-8 md:py-12 text-center">
+        <h2 class="text-3xl md:text-5xl font-extrabold text-gray-800 mb-4">Асиметрична Коаліційна Лояльність</h2>
+        <p class="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto">
+            Партизанська відповідь на гегемонію EVA. Інтерактивний звіт щодо впровадження SaaS-платформи взаємодії між національним drogerie-ритейлером та мережею стрит-кав'ярень в умовах макроекономічного стресу.
+        </p>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <section class="card col-span-1 md:col-span-2 bg-gradient-to-r from-indigo-900 to-indigo-700 text-white">
+            <h3 class="text-2xl font-bold mb-4 flex items-center">
+                <span class="text-3xl mr-3">⚠️</span> Операційний Стрес-Тест: Ключові Виклики
+            </h3>
+            <p class="mb-4 text-indigo-100">Аналіз показав, що класичні моделі лояльності не працюватимуть через 4 критичні фактори зовнішнього середовища:</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-white/10 p-4 rounded-lg backdrop-blur-sm">
+                    <div class="text-2xl mb-2">🚨</div>
+                    <div class="font-bold">Повітряні Тривоги</div>
+                    <div class="text-sm text-indigo-200 mt-1">Втрата 15-17% трафіку (незворотний "мертвий час").</div>
+                </div>
+                <div class="bg-white/10 p-4 rounded-lg backdrop-blur-sm">
+                    <div class="text-2xl mb-2">💸</div>
+                    <div class="font-bold">Фінмоніторинг ДПС</div>
+                    <div class="text-sm text-indigo-200 mt-1">Страх персоналу перед штрафами за P2P-перекази (справа №440/2032/25).</div>
+                </div>
+                <div class="bg-white/10 p-4 rounded-lg backdrop-blur-sm">
+                    <div class="text-2xl mb-2">🏗️</div>
+                    <div class="font-bold">Демонтаж МАФів</div>
+                    <div class="text-sm text-indigo-200 mt-1">Кампанія КМДА вимагає динамічний Kill-Switch геолокації точок ХК.</div>
+                </div>
+                <div class="bg-white/10 p-4 rounded-lg backdrop-blur-sm">
+                    <div class="text-2xl mb-2">🔌</div>
+                    <div class="font-bold">Блекаути</div>
+                    <div class="text-sm text-indigo-200 mt-1">Необхідність PWA-сканерів та Fallback-сценаріїв для кас без інтернету.</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h3 class="text-xl font-bold text-indigo mb-2">Дисконт на Повітряні Тривоги</h3>
+            <p class="text-sm text-gray-600 mb-6">Фінансова модель розрахунку конверсій жорстко закладає втрати прогнозованого загального трафіку через зупинку операційної діяльності під час тривог.</p>
+            <div class="chart-container">
+                <canvas id="airRaidChart"></canvas>
+            </div>
+            <div class="mt-4 p-3 bg-red-50 text-red-800 rounded-md text-sm border-l-4 border-red-500">
+                <strong>Висновок:</strong> Модель окупності MVP повинна будуватися на 83-85% базового трафіку.
+            </div>
+        </section>
+
+        <section class="card">
+            <h3 class="text-xl font-bold text-indigo mb-2">Мотивація Персоналу (Anti-Tax Fear)</h3>
+            <p class="text-sm text-gray-600 mb-6">Мізерна офіційна зарплата лінійного персоналу. Класичні "чорні" бонуси паралізовані страхом ДПС. Рішення: легальний «Білий Гаманець» у PWA.</p>
+            <div class="chart-container">
+                <canvas id="salaryChart"></canvas>
+            </div>
+            <div class="mt-4 p-3 bg-orange-50 text-orange-800 rounded-md text-sm border-l-4 border-orange">
+                <strong>Висновок:</strong> Лише легалізований бонус через систему може подолати когнітивний бар'єр продавців та стимулювати видачу купонів.
+            </div>
+        </section>
+
+        <section class="card col-span-1 md:col-span-2">
+            <div class="md:flex justify-between items-end mb-6">
+                <div>
+                    <h3 class="text-2xl font-bold text-indigo mb-2">Synergis O2O Workflow (Архітектура)</h3>
+                    <p class="text-gray-600 max-w-2xl">Механіка крос-маркетингової взаємодії між Покупцем, Продавцем 1 (Watsons) та Продавцем 2 (ХК) через центральну легку CRM. Використовуйте кнопки для перегляду флоу.</p>
+                </div>
+                <div class="flex space-x-2 mt-4 md:mt-0">
+                    <button id="btnStep1" class="px-4 py-2 bg-indigo text-white rounded shadow hover:bg-indigo-700 transition">Крок 1: Купівля</button>
+                    <button id="btnStep2" class="px-4 py-2 bg-cyan text-white rounded shadow hover:bg-cyan-600 transition">Крок 2: Купон</button>
+                    <button id="btnStep3" class="px-4 py-2 bg-orange text-white rounded shadow hover:bg-orange-600 transition">Крок 3: Гасіння</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-center px-4 py-8 bg-gray-50 rounded-xl border border-gray-100">
+                
+                <div id="boxBuyer" class="workflow-step md:col-span-1">
+                    <div class="text-4xl mb-2">🚶</div>
+                    <div class="font-bold text-gray-800">Покупець</div>
+                    <div id="descBuyer" class="text-xs text-gray-500 mt-2 h-10">Авторизація за номером телефону або ID.</div>
+                </div>
+
+                <div id="arrow1" class="workflow-arrow md:col-span-1">
+                    <span class="md:hidden">⬇️</span>
+                    <span class="hidden md:inline">➡️</span>
+                </div>
+
+                <div id="boxSeller1" class="workflow-step md:col-span-1">
+                    <div class="text-4xl mb-2">🏪</div>
+                    <div class="font-bold text-indigo">Продавець 1 (Watsons)</div>
+                    <div id="descSeller1" class="text-xs text-gray-500 mt-2 h-10">Ідентифікує, перевіряє умови акції, видає QR-код.</div>
+                </div>
+
+                <div id="arrow2" class="workflow-arrow md:col-span-1">
+                    <span class="md:hidden">⬇️</span>
+                    <span class="hidden md:inline">➡️</span>
+                </div>
+
+                <div id="boxSeller2" class="workflow-step md:col-span-1">
+                    <div class="text-4xl mb-2">☕</div>
+                    <div class="font-bold text-orange">Продавець 2 (ХК)</div>
+                    <div id="descSeller2" class="text-xs text-gray-500 mt-2 h-10">Сканує QR, звіряє ID в CRM, видає нагороду.</div>
+                </div>
+
+            </div>
+            
+            <div class="mt-6 bg-white border border-indigo rounded-lg p-4 text-center">
+                <span class="font-bold text-indigo">Центральна Synergis CRM:</span>
+                <span id="crmStatus" class="ml-2 text-gray-600">Очікування дій системи...</span>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white text-center p-6 mt-12">
+        <p class="text-sm opacity-75">Synergis O2O Dashboard MVP | Конфіденційна аналітика | 2026</p>
+    </footer>
+
+    <script>
+        function wrapLabel(label) {
+            if (typeof label !== 'string') return label;
+            if (label.length <= 16) return label;
+            const words = label.split(' ');
+            const lines = [];
+            let currentLine = '';
+            words.forEach(word => {
+                if ((currentLine + word).length > 16) {
+                    if (currentLine) lines.push(currentLine.trim());
+                    currentLine = word + ' ';
+                } else {
+                    currentLine += word + ' ';
+                }
+            });
+            if (currentLine) lines.push(currentLine.trim());
+            return lines;
+        }
+
+        const commonTooltipConfig = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    } else {
+                        return label;
+                    }
+                }
+            }
+        };
+
+        const ctxAir = document.getElementById('airRaidChart').getContext('2d');
+        const airLabels = ['Ефективний операційний час', 'Втрати (Повітряні тривоги)'].map(wrapLabel);
+        new Chart(ctxAir, {
+            type: 'doughnut',
+            data: {
+                labels: airLabels,
+                datasets: [{
+                    data: [83, 17],
+                    backgroundColor: ['#00BCD4', '#E91E63'],
+                    borderWidth: 0,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '65%',
+                plugins: {
+                    legend: { position: 'bottom' },
+                    tooltip: commonTooltipConfig
+                }
+            }
+        });
+
+        const ctxSalary = document.getElementById('salaryChart').getContext('2d');
+        const salaryLabels = ['Зарплата (Watsons/ХК)', 'Ринкова Медіана', 'Очікуваний Дохід з PWA-Бонусом'].map(wrapLabel);
+        new Chart(ctxSalary, {
+            type: 'bar',
+            data: {
+                labels: salaryLabels,
+                datasets: [{
+                    label: 'Сума (Грн)',
+                    data: [11250, 28500, 16250],
+                    backgroundColor: ['#E5E7EB', '#3F51B5', '#FF5722'],
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: commonTooltipConfig
+                },
+                scales: {
+                    y: { beginAtZero: true, title: { display: true, text: 'Гривні (UAH)' } }
+                }
+            }
+        });
+
+        const btn1 = document.getElementById('btnStep1');
+        const btn2 = document.getElementById('btnStep2');
+        const btn3 = document.getElementById('btnStep3');
+        
+        const boxBuyer = document.getElementById('boxBuyer');
+        const boxSeller1 = document.getElementById('boxSeller1');
+        const boxSeller2 = document.getElementById('boxSeller2');
+        const arrow1 = document.getElementById('arrow1');
+        const arrow2 = document.getElementById('arrow2');
+        
+        const crmStatus = document.getElementById('crmStatus');
+        const descBuyer = document.getElementById('descBuyer');
+        const descSeller1 = document.getElementById('descSeller1');
+        const descSeller2 = document.getElementById('descSeller2');
+
+        function resetWorkflow() {
+            [boxBuyer, boxSeller1, boxSeller2].forEach(el => el.classList.remove('active'));
+            [arrow1, arrow2].forEach(el => el.classList.remove('active'));
+            descBuyer.innerText = "Авторизація за номером телефону або ID.";
+            descSeller1.innerText = "Ідентифікує, перевіряє умови акції, видає QR-код.";
+            descSeller2.innerText = "Сканує QR, звіряє ID в CRM, видає нагороду.";
+        }
+
+        btn1.addEventListener('click', () => {
+            resetWorkflow();
+            boxBuyer.classList.add('active');
+            boxSeller1.classList.add('active');
+            arrow1.classList.add('active');
+            descBuyer.innerText = "Диктує номер або показує Apple Wallet.";
+            descSeller1.innerText = "Реєструє Тіньовий профіль (якщо новий клієнт).";
+            crmStatus.innerHTML = "Створено <span class='text-orange font-bold'>User_ID</span>. Статус: Новий.";
+        });
+
+        btn2.addEventListener('click', () => {
+            resetWorkflow();
+            boxSeller1.classList.add('active');
+            descSeller1.innerText = "Виконує умови акції. Присвоює цифровий купон клієнту.";
+            crmStatus.innerHTML = "ID Купона прив'язано до <span class='text-orange font-bold'>User_ID</span>. Баланс оновлено.";
+        });
+
+        btn3.addEventListener('click', () => {
+            resetWorkflow();
+            boxBuyer.classList.add('active');
+            boxSeller2.classList.add('active');
+            arrow1.classList.add('active');
+            arrow2.classList.add('active');
+            descBuyer.innerText = "Приходить в ХК, показує цифровий QR-код.";
+            descSeller2.innerText = "Сканує QR через свій PWA, бачить валідність.";
+            crmStatus.innerHTML = "Купон <span class='text-red-500 font-bold'>Погашено</span>. Нараховано бонус баристі в Білий Гаманець.";
+        });
+
+    </script>
+</body>
+</html>
