@@ -108,50 +108,117 @@
   <main>
     <section style="position:relative;padding:clamp(53px,7vw,88px) clamp(20px,5vw,40px) clamp(38px,6vw,64px)">
       <sc-if value="{{ edge }}"><div style="position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--accent,#047857)"></div></sc-if>
-      <div style="max-width:1180px;margin:0 auto">
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(21,35,44,0.5);margin-bottom:26px">{{ t.platform.eyebrow }}</div>
-        <h1 style="font-family:var(--display);font-weight:400;font-size:clamp(30px,4.8vw,46px);line-height:1.2;letter-spacing:-0.015em;max-width:20ch;margin-bottom:24px">{{ t.platform.title }}</h1>
-        <p style="font-size:clamp(17px,1.7vw,19px);line-height:1.65;color:#5a6d78;max-width:58ch">{{ t.platform.lede }}</p>
+      <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:{{ colsHero }};gap:clamp(28px,5vw,72px);align-items:end">
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(21,35,44,0.5);margin-bottom:26px">{{ t.platform.eyebrow }}</div>
+          <h1 style="font-family:var(--display);font-weight:400;font-size:clamp(30px,4.4vw,46px);line-height:1.2;letter-spacing:-0.015em;max-width:18ch;margin-bottom:24px">{{ t.platform.title }}</h1>
+          <p style="font-size:clamp(17px,1.7vw,19px);line-height:1.65;color:#5a6d78;max-width:52ch">{{ t.platform.lede }}</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px;border-left:1px solid rgba(21,35,44,0.14);padding-left:clamp(20px,2.5vw,32px)">
+          <sc-for list="{{ notList }}" as="n" hint-placeholder-count="3">
+            <div style="display:flex;gap:12px;font-size:15px;line-height:1.55;color:#5a6d78"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:rgba(21,35,44,0.32);padding-top:2px">✕</span><span>{{ n.text }}</span></div>
+          </sc-for>
+        </div>
       </div>
     </section>
-    <section style="padding:0 clamp(20px,5vw,40px) clamp(52px,6vw,88px)">
-      <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1px;background:rgba(21,35,44,0.12);border:1px solid rgba(21,35,44,0.12);border-radius:4px;overflow:hidden">
-        <sc-for list="{{ mechanics }}" as="m" hint-placeholder-count="4">
-          <div style="background:#ffffff;padding:clamp(28px,4vw,44px) clamp(24px,3.5vw,40px)">
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em;color:var(--accent,#047857);margin-bottom:20px">{{ m.no }}</div>
-            <h3 style="font-family:var(--display);font-weight:400;font-size:24px;line-height:1.3;margin-bottom:14px">{{ m.title }}</h3>
-            <p style="font-size:16px;line-height:1.7;color:#5a6d78">{{ m.body }}</p>
-          </div>
-        </sc-for>
-      </div>
-    </section>
+
     <section style="background:#ffffff;border-top:1px solid rgba(21,35,44,0.1);border-bottom:1px solid rgba(21,35,44,0.1);padding:clamp(53px,7vw,88px) clamp(20px,5vw,40px)">
       <div style="max-width:1180px;margin:0 auto">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:32px;flex-wrap:wrap;margin-bottom:clamp(32px,4vw,52px)">
+          <div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(21,35,44,0.5);margin-bottom:20px">{{ t.platform.flowLabel }}</div>
+            <h2 style="font-family:var(--display);font-weight:400;font-size:clamp(24px,3.2vw,31px);line-height:1.3;max-width:24ch">{{ t.platform.flowTitle }}</h2>
+          </div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;color:var(--accent,#047857);border:1px solid rgba(4,120,87,0.3);border-radius:3px;padding:9px 14px">{{ t.platform.flowStamp }}</div>
+        </div>
+        <div style="display:grid;grid-template-columns:{{ cols3 }};gap:0;border-top:1px solid rgba(21,35,44,0.14)">
+          <sc-for list="{{ flow }}" as="f" hint-placeholder-count="3">
+            <div style="position:relative;padding:30px clamp(20px,2.4vw,32px) 34px 0">
+              <div style="position:absolute;left:0;top:-4px;width:7px;height:7px;border-radius:50%;background:var(--accent,#047857)"></div>
+              <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:16px">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em;color:var(--accent,#047857)">{{ f.no }}</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.06em;color:rgba(21,35,44,0.42)">{{ f.actor }}</span>
+              </div>
+              <h3 style="font-family:var(--display);font-weight:400;font-size:clamp(21px,2.2vw,24px);line-height:1.3;margin-bottom:12px">{{ f.title }}</h3>
+              <p style="font-size:16px;line-height:1.7;color:#5a6d78;margin-bottom:18px;max-width:44ch">{{ f.body }}</p>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.06em;color:rgba(21,35,44,0.42)">{{ f.time }}</div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="border-top:1px solid rgba(21,35,44,0.14);margin-top:8px;padding-top:26px;font-size:15.5px;line-height:1.65;color:#5a6d78;max-width:78ch">{{ t.platform.flowNote }}</div>
+      </div>
+    </section>
+
+    <section style="padding:clamp(52px,6vw,88px) clamp(20px,5vw,40px)">
+      <div style="max-width:1180px;margin:0 auto">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(21,35,44,0.5);margin-bottom:20px">{{ t.platform.mechLabel }}</div>
+        <h2 style="font-family:var(--display);font-weight:400;font-size:clamp(24px,3.2vw,31px);line-height:1.3;max-width:26ch;margin-bottom:clamp(28px,3.5vw,44px)">{{ t.platform.mechTitle }}</h2>
+        <div style="display:grid;grid-template-columns:{{ cols4 }};gap:1px;background:rgba(21,35,44,0.12);border:1px solid rgba(21,35,44,0.12);border-radius:4px;overflow:hidden">
+          <sc-for list="{{ mechanics }}" as="m" hint-placeholder-count="4">
+            <div style="background:#ffffff;padding:clamp(26px,2.6vw,34px) clamp(22px,2.4vw,30px);display:flex;flex-direction:column">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em;color:var(--accent,#047857);margin-bottom:18px">{{ m.no }}</div>
+              <h3 style="font-family:var(--display);font-weight:400;font-size:21px;line-height:1.3;margin-bottom:12px">{{ m.title }}</h3>
+              <p style="font-size:15.5px;line-height:1.65;color:#5a6d78">{{ m.body }}</p>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section style="background:#15232c;padding:clamp(53px,7vw,88px) clamp(20px,5vw,40px)">
+      <div style="max-width:1180px;margin:0 auto">
+        <div style="display:grid;grid-template-columns:{{ colsHero }};gap:clamp(28px,5vw,72px);align-items:end;margin-bottom:clamp(32px,4vw,52px)">
+          <div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(238,243,245,0.5);margin-bottom:20px">{{ t.platform.resLabel }}</div>
+            <h2 style="font-family:var(--display);font-weight:400;font-size:clamp(24px,3.2vw,31px);line-height:1.3;color:#eef3f5;max-width:24ch">{{ t.platform.resTitle }}</h2>
+          </div>
+          <p style="font-size:16px;line-height:1.7;color:rgba(238,243,245,0.62);max-width:46ch">{{ t.platform.resLede }}</p>
+        </div>
+        <div style="display:grid;grid-template-columns:{{ cols4 }};gap:clamp(24px,2.6vw,36px)">
+          <sc-for list="{{ resilience }}" as="r" hint-placeholder-count="4">
+            <div style="border-top:1px solid rgba(16,185,129,0.55);padding-top:20px">
+              <div style="font-size:15px;font-weight:600;color:#eef3f5;margin-bottom:10px">{{ r.title }}</div>
+              <p style="font-size:15.5px;line-height:1.65;color:rgba(238,243,245,0.6)">{{ r.body }}</p>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section style="background:#ffffff;border-bottom:1px solid rgba(21,35,44,0.1);padding:clamp(53px,7vw,88px) clamp(20px,5vw,40px)">
+      <div style="max-width:1180px;margin:0 auto">
         <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(21,35,44,0.5);margin-bottom:22px">{{ t.platform.winLabel }}</div>
-        <h2 style="font-family:var(--display);font-weight:400;font-size:clamp(24px,3.2vw,31px);line-height:1.3;margin-bottom:48px;max-width:26ch">{{ t.platform.winTitle }}</h2>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:clamp(28px,3vw,40px)">
+        <h2 style="font-family:var(--display);font-weight:400;font-size:clamp(24px,3.2vw,31px);line-height:1.3;margin-bottom:clamp(30px,4vw,48px);max-width:26ch">{{ t.platform.winTitle }}</h2>
+        <div style="display:grid;grid-template-columns:{{ cols3 }};gap:clamp(28px,3vw,40px)">
           <sc-for list="{{ wins }}" as="w" hint-placeholder-count="3">
             <div style="border-top:1px solid var(--accent,#047857);padding-top:22px">
               <div style="font-size:15px;font-weight:600;margin-bottom:10px">{{ w.who }}</div>
-              <p style="font-size:16px;line-height:1.7;color:#5a6d78">{{ w.gain }}</p>
+              <p style="font-size:16px;line-height:1.7;color:#5a6d78;max-width:42ch">{{ w.gain }}</p>
             </div>
           </sc-for>
         </div>
       </div>
     </section>
+
     <section style="padding:clamp(48px,7vw,80px) clamp(20px,5vw,40px) clamp(58px,6vw,96px)">
-      <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:clamp(32px,5vw,72px);align-items:start">
-        <div>
-          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(21,35,44,0.5);margin-bottom:18px">{{ t.platform.seeLabel }}</div>
-          <h2 style="font-family:var(--display);font-weight:400;font-size:clamp(22px,2.7vw,27px);line-height:1.32">{{ t.platform.seeTitle }}</h2>
+      <div style="max-width:1180px;margin:0 auto">
+        <div style="display:grid;grid-template-columns:{{ colsSee }};gap:clamp(28px,4vw,64px);align-items:start">
+          <div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(21,35,44,0.5);margin-bottom:18px">{{ t.platform.seeLabel }}</div>
+            <h2 style="font-family:var(--display);font-weight:400;font-size:clamp(22px,2.7vw,27px);line-height:1.32;max-width:18ch">{{ t.platform.seeTitle }}</h2>
+          </div>
+          <div style="display:grid;grid-template-columns:{{ cols2 }};gap:0 clamp(28px,3vw,48px)">
+            <sc-for list="{{ seeItems }}" as="s" hint-placeholder-count="4">
+              <div style="display:flex;gap:20px;padding:18px 0;border-bottom:1px solid rgba(21,35,44,0.12)">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;color:rgba(21,35,44,0.4);width:26px;flex-shrink:0;padding-top:4px">{{ s.no }}</div>
+                <div style="font-size:16px;line-height:1.6;color:#15232c">{{ s.text }}</div>
+              </div>
+            </sc-for>
+          </div>
         </div>
-        <div style="display:flex;flex-direction:column">
-          <sc-for list="{{ seeItems }}" as="s" hint-placeholder-count="4">
-            <div style="display:flex;gap:28px;padding:20px 0;border-bottom:1px solid rgba(21,35,44,0.12)">
-              <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;color:rgba(21,35,44,0.4);width:32px;flex-shrink:0;padding-top:4px">{{ s.no }}</div>
-              <div style="font-size:16.5px;line-height:1.6;color:#15232c">{{ s.text }}</div>
-            </div>
-          </sc-for>
+        <div style="margin-top:clamp(40px,5vw,64px);background:var(--accent,#047857);border-radius:4px;padding:clamp(32px,4.5vw,48px) clamp(24px,4.5vw,52px);display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap">
+          <div style="font-family:var(--display);font-weight:400;font-size:clamp(22px,2.7vw,27px);line-height:1.3;color:#ffffff;max-width:40ch">{{ t.band.title }}</div>
+          <a href="#/contact" onClick="{{ goContact }}" style="background:#eef3f5;color:#15232c;font-size:15px;font-weight:600;padding:15px 28px;border-radius:3px;white-space:nowrap" style-hover="background:#ffffff;color:#15232c">{{ t.band.cta }}</a>
         </div>
       </div>
     </section>
@@ -212,37 +279,79 @@
 
   <sc-if value="{{ atApproach }}">
   <main>
-    <section style="position:relative;padding:clamp(53px,7vw,88px) clamp(20px,5vw,40px) clamp(38px,6vw,64px)">
+    <section style="position:relative;padding:clamp(53px,7vw,88px) clamp(20px,5vw,40px) clamp(38px,6vw,56px)">
       <sc-if value="{{ edge }}"><div style="position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--accent,#047857)"></div></sc-if>
-      <div style="max-width:1180px;margin:0 auto">
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(21,35,44,0.5);margin-bottom:26px">{{ t.approach.eyebrow }}</div>
-        <h1 style="font-family:var(--display);font-weight:400;font-size:clamp(30px,4.8vw,46px);line-height:1.2;letter-spacing:-0.015em;max-width:20ch;margin-bottom:24px">{{ t.approach.title }}</h1>
-        <p style="font-size:clamp(17px,1.7vw,19px);line-height:1.65;color:#5a6d78;max-width:58ch">{{ t.approach.lede }}</p>
+      <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:{{ colsHero }};gap:clamp(28px,5vw,72px);align-items:end">
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(21,35,44,0.5);margin-bottom:26px">{{ t.approach.eyebrow }}</div>
+          <h1 style="font-family:var(--display);font-weight:400;font-size:clamp(30px,4.4vw,46px);line-height:1.2;letter-spacing:-0.015em;max-width:16ch;margin-bottom:24px">{{ t.approach.title }}</h1>
+          <p style="font-size:clamp(17px,1.7vw,19px);line-height:1.65;color:#5a6d78;max-width:52ch">{{ t.approach.lede }}</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px;border-left:1px solid rgba(21,35,44,0.14);padding-left:clamp(20px,2.5vw,32px)">
+          <sc-for list="{{ approachRules }}" as="r" hint-placeholder-count="3">
+            <div style="display:flex;gap:12px;font-size:15px;line-height:1.55;color:#5a6d78"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent,#047857);padding-top:2px">—</span><span>{{ r.text }}</span></div>
+          </sc-for>
+        </div>
       </div>
     </section>
-    <section style="padding:clamp(19px,7vw,32px) clamp(20px,5vw,40px) clamp(58px,6vw,96px)">
-      <div style="max-width:1180px;margin:0 auto;display:flex;flex-direction:column">
-        <sc-for list="{{ steps }}" as="s" hint-placeholder-count="3">
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:clamp(18px,3vw,40px);padding:44px 0;border-top:1px solid rgba(21,35,44,0.14);align-items:start">
-            <div>
-              <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em;color:var(--accent,#047857);margin-bottom:8px">{{ s.no }}</div>
-              <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.06em;color:rgba(21,35,44,0.42)">{{ s.dur }}</div>
+
+    <section style="background:#ffffff;border-top:1px solid rgba(21,35,44,0.1);border-bottom:1px solid rgba(21,35,44,0.1);padding:clamp(48px,6vw,72px) clamp(20px,5vw,40px) clamp(52px,7vw,88px)">
+      <div style="max-width:1180px;margin:0 auto">
+        <div style="display:grid;grid-template-columns:{{ cols3 }};gap:0 clamp(24px,3vw,44px);margin-bottom:14px">
+          <sc-for list="{{ steps }}" as="s" hint-placeholder-count="3">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding-bottom:14px">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em;color:var(--accent,#047857)">{{ s.no }}</span>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.06em;color:rgba(21,35,44,0.42)">{{ s.dur }}</span>
             </div>
-            <h3 style="font-family:var(--display);font-weight:400;font-size:clamp(23px,2.8vw,28px);line-height:1.28">{{ s.title }}</h3>
-            <div>
-              <p style="font-size:16.5px;line-height:1.7;color:#5a6d78;margin-bottom:20px">{{ s.body }}</p>
-              <div style="display:flex;flex-direction:column;gap:9px">
+          </sc-for>
+        </div>
+        <div style="display:grid;grid-template-columns:{{ cols3 }};gap:0 clamp(24px,3vw,44px);border-top:1px solid rgba(21,35,44,0.16)">
+          <sc-for list="{{ steps }}" as="s" hint-placeholder-count="3">
+            <div style="position:relative;padding:32px clamp(0px,1.5vw,20px) 0 0;display:flex;flex-direction:column;height:100%">
+              <div style="position:absolute;left:0;top:-5px;width:9px;height:9px;border-radius:50%;background:var(--accent,#047857)"></div>
+              <h3 style="font-family:var(--display);font-weight:400;font-size:clamp(24px,2.8vw,30px);line-height:1.24;margin-bottom:16px">{{ s.title }}</h3>
+              <p style="font-size:16px;line-height:1.7;color:#5a6d78;margin-bottom:26px;max-width:42ch">{{ s.body }}</p>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(21,35,44,0.45);margin-bottom:14px">{{ t.approach.outLabel }}</div>
+              <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:28px">
                 <sc-for list="{{ s.out }}" as="o" hint-placeholder-count="3">
                   <div style="display:flex;gap:12px;font-size:15px;line-height:1.55;color:#15232c"><span style="color:var(--accent,#047857);font-family:'IBM Plex Mono',monospace;font-size:12px;padding-top:2px">—</span><span>{{ o.text }}</span></div>
                 </sc-for>
               </div>
+              <div style="margin-top:auto;background:#f8fafb;border:1px solid rgba(21,35,44,0.12);border-radius:4px;padding:18px 20px">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(21,35,44,0.45);margin-bottom:8px">{{ t.approach.gateLabel }}</div>
+                <div style="font-size:15px;line-height:1.55;color:#15232c">{{ s.gate }}</div>
+              </div>
             </div>
-          </div>
-        </sc-for>
-        <div style="border-top:1px solid rgba(21,35,44,0.14);padding-top:44px;display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap">
-          <div style="font-family:var(--display);font-weight:400;font-size:clamp(22px,2.7vw,27px);line-height:1.3;max-width:40ch">{{ t.approach.closer }}</div>
-          <a href="#/contact" onClick="{{ goContact }}" style="background:var(--accent,#047857);color:#ffffff;font-size:15px;font-weight:600;padding:15px 28px;border-radius:3px;white-space:nowrap" style-hover="background:#065f46;color:#ffffff">{{ t.home.cta1 }}</a>
+          </sc-for>
         </div>
+      </div>
+    </section>
+
+    <section style="padding:clamp(48px,6vw,80px) clamp(20px,5vw,40px)">
+      <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:{{ colsSee }};gap:clamp(28px,4vw,64px);align-items:start">
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(21,35,44,0.5);margin-bottom:18px">{{ t.approach.sideLabel }}</div>
+          <h2 style="font-family:var(--display);font-weight:400;font-size:clamp(22px,2.7vw,27px);line-height:1.32;max-width:18ch">{{ t.approach.sideTitle }}</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:{{ cols2 }};gap:clamp(20px,2.4vw,32px)">
+          <sc-for list="{{ sides }}" as="p" hint-placeholder-count="2">
+            <div style="background:#ffffff;border:1px solid rgba(21,35,44,0.12);border-radius:4px;padding:clamp(24px,3vw,34px)">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent,#047857);margin-bottom:16px">{{ p.who }}</div>
+              <div style="display:flex;flex-direction:column;gap:11px">
+                <sc-for list="{{ p.items }}" as="i" hint-placeholder-count="3">
+                  <div style="display:flex;gap:12px;font-size:15.5px;line-height:1.6;color:#15232c"><span style="color:rgba(21,35,44,0.3);font-family:'IBM Plex Mono',monospace;font-size:12px;padding-top:2px">—</span><span>{{ i.text }}</span></div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding:clamp(20px,3vw,32px) clamp(20px,5vw,40px) clamp(58px,6vw,96px)">
+      <div style="max-width:1180px;margin:0 auto;border-top:1px solid rgba(21,35,44,0.14);padding-top:clamp(32px,4vw,44px);display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap">
+        <div style="font-family:var(--display);font-weight:400;font-size:clamp(22px,2.7vw,27px);line-height:1.3;max-width:40ch">{{ t.approach.closer }}</div>
+        <a href="#/contact" onClick="{{ goContact }}" style="background:var(--accent,#047857);color:#ffffff;font-size:15px;font-weight:600;padding:15px 28px;border-radius:3px;white-space:nowrap" style-hover="background:#065f46;color:#ffffff">{{ t.home.cta1 }}</a>
       </div>
     </section>
   </main>
@@ -340,8 +449,33 @@ const COPY = {
       winLabel: 'Win — win — win',
       winTitle: 'Обмін має бути вигідним трьом сторонам, інакше він не повторюється.',
       seeLabel: 'Що ви бачите',
-      seeTitle: 'Прозорість без панелей, які ніхто не відкриває.'
+      seeTitle: 'Прозорість без панелей, які ніхто не відкриває.',
+      flowLabel: 'Операційний флоу',
+      flowTitle: 'Три дії. Жодної нової каси й жодної інтеграції з вашим ПЗ.',
+      flowStamp: 'До 10 секунд на касі',
+      flowNote: 'Коди не генеруються в момент видачі — вони емітуються заздалегідь пулом і лише прив’язуються до гостя. Тому видача не залежить від швидкості мережі, а черга на касі не зупиняється.',
+      mechLabel: 'Механіки',
+      mechTitle: 'Чотири елементи, з яких збирається периметр.',
+      resLabel: 'Операційна стійкість',
+      resTitle: 'Спроєктовано під українську реальність, а не під демозал.',
+      resLede: 'Тривоги, блекаути, зміна локацій і обережність персоналу — це не винятки, а щоденні умови. Кожен із них закладений у механіку, а не в примітку до договору.'
     },
+    notList: [
+      { text: 'Не коаліційна програма балів: немає спільної валюти й каталогу винагород.' },
+      { text: 'Не окремий застосунок, який гість має встановити та відкривати щодня.' },
+      { text: 'Не інтеграція з вашою касовою системою — платформа працює поруч із нею.' }
+    ],
+    flow: [
+      { no: '01', actor: 'Бізнес A', title: 'Видача', body: 'Касир відкриває легкий веб-інтерфейс у месенджері, ідентифікує гостя за номером або сканує його код і видає ваучер сусіда. Одна дія, без анкет: профіль дозбирується пізніше, уже в смартфоні гостя.', time: '≈ 10 секунд' },
+      { no: '02', actor: 'Гість', title: 'Носій', body: 'Ваучер приходить у месенджер або лягає у Wallet — там, де гість уже щодня буває. Термін дії обмежений, щоб жест лишався приводом зайти сьогодні, а не безстроковою знижкою.', time: 'Годин 24–72' },
+      { no: '03', actor: 'Бізнес B', title: 'Гасіння', body: 'Персонал сканує код, система звіряє статус і «спалює» його. Чек підтягується автоматично зі списку останніх операцій; при потребі сума вводиться вручну.', time: '≈ 8 секунд' }
+    ],
+    resilience: [
+      { title: 'Офлайн-режим', body: 'При втраті зв’язку гасіння не блокується: операція фіксується локально й довантажується в чергу. Деталізація по SKU втрачається, факт візиту й сума — ні.' },
+      { title: 'Дисконт на тривоги', body: 'Фінансова модель пілота будується на 83–85% базового трафіку. «Мертвий час» закладено в прогноз, а не списано на похибку.' },
+      { title: 'Рухома карта локацій', body: 'Точки вмикаються й вимикаються з периметра миттєво — переїзд, демонтаж або тимчасове закриття партнера не ламає механіку решти пар.' },
+      { title: 'Легальна мотивація персоналу', body: 'Бонус за виданий ваучер нараховується на внутрішній баланс і виплачується офіційно. Без переказів «з картки на картку» — і без страху перед перевіркою.' }
+    ],
     mechanics: [
       { no: '01', title: 'Крос-ваучери', body: 'Гість бізнесу A отримує іменний жест у бізнесі B: не знижку «для всіх», а привід зайти саме сьогодні. Ваучер живе в тому каналі, яким гість уже користується.' },
       { no: '02', title: 'Гіперлокальний периметр', body: 'Партнери підбираються в межах двох-трьох кварталів — так, щоб дорога між ними була природною частиною дня. Це не формальні 500 метрів: межу визначають пішохідні маршрути, а не циркуль.' },
@@ -381,12 +515,25 @@ const COPY = {
       eyebrow: 'Підхід',
       title: 'Діагностика → пілот → масштабування.',
       lede: 'Ніяких програм на рік наперед. Кожен етап має власний результат і власну точку виходу.',
-      closer: 'Готові подивитися на свій периметр разом?'
+      closer: 'Готові подивитися на свій периметр разом?',
+      outLabel: 'Результат етапу',
+      gateLabel: 'Точка рішення',
+      sideLabel: 'Розподіл ролей',
+      sideTitle: 'Що робимо ми, а що лишається за вами.'
     },
+    approachRules: [
+      { text: 'Кожен етап оплачується окремо й може бути останнім.' },
+      { text: 'Пілот запускається на 3–5 локаціях, не на всій мережі.' },
+      { text: 'Рішення ухвалюється за цифрами етапу, а не за планом на рік.' }
+    ],
+    sides: [
+      { who: 'Synergis', items: [ { text: 'Карта периметра й добір партнерів поруч із вами' }, { text: 'Механіки, носії ваучерів і робочі місця персоналу' }, { text: 'Тренінг зміни та мовленнєві скрипти на касі' }, { text: 'Тижнева аналітика й рекомендація на кожній точці рішення' } ] },
+      { who: 'Ваша команда', items: [ { text: 'Доступ до локацій і згода керівників точок' }, { text: 'Дві-три години часу зміни на тренінг перед стартом' }, { text: 'Дані про трафік і середній чек за попередній період' }, { text: 'Одна відповідальна людина з боку бізнесу на весь пілот' } ] }
+    ],
     steps: [
-      { no: '01', dur: '2–3 тижні', title: 'Діагностика', body: 'Ми дивимося на локацію так, як на неї дивиться гість: маршрути, сусіди, години пік, точки тертя на касі й у залі. Паралельно — стан процесів і даних.', out: [ { text: 'Карта периметра: хто поруч і хто вам не конкурент' }, { text: 'Гіпотези крос-механік з очікуваним ефектом' }, { text: 'Перелік того, що треба полагодити до старту' } ] },
-      { no: '02', dur: '6–8 тижнів', title: 'Пілот', body: 'Обмежений периметр, дві-три пари партнерів, одна-дві механіки. Мета — не масштаб, а достовірний сигнал: чи повертається гість і чи витримує це персонал.', out: [ { text: 'Живі крос-ваучери та пакетні пропозиції' }, { text: 'Тижневий ритм перегляду результатів' }, { text: 'Рішення: розширювати, переналаштувати чи зупинити' } ] },
-      { no: '03', dur: 'далі', title: 'Масштабування', body: 'Периметр розширюється кварталами, а не містами. Кожна нова пара партнерів проходить той самий короткий цикл: запуск, вимір, рішення.', out: [ { text: 'Регламент підключення нового партнера' }, { text: 'Баланс віддали / отримали по кожній локації' }, { text: 'Передача операційної рутини вашій команді' } ] }
+      { no: '01', dur: '2–3 тижні', title: 'Діагностика', body: 'Ми дивимося на локацію так, як на неї дивиться гість: маршрути, сусіди, години пік, точки тертя на касі й у залі. Паралельно — стан процесів і даних.', out: [ { text: 'Карта периметра: хто поруч і хто вам не конкурент' }, { text: 'Гіпотези крос-механік з очікуваним ефектом' }, { text: 'Перелік того, що треба полагодити до старту' } ], gate: 'Чи є в периметрі достатньо непрямих сусідів, щоб пілот мав сенс.' },
+      { no: '02', dur: '6–8 тижнів', title: 'Пілот', body: 'Обмежений периметр, дві-три пари партнерів, одна-дві механіки. Мета — не масштаб, а достовірний сигнал: чи повертається гість і чи витримує це персонал.', out: [ { text: 'Живі крос-ваучери та пакетні пропозиції' }, { text: 'Тижневий ритм перегляду результатів' }, { text: 'Рішення: розширювати, переналаштувати чи зупинити' } ], gate: 'Чи повертається гість і чи витримує механіку персонал на піку.' },
+      { no: '03', dur: 'далі', title: 'Масштабування', body: 'Периметр розширюється кварталами, а не містами. Кожна нова пара партнерів проходить той самий короткий цикл: запуск, вимір, рішення.', out: [ { text: 'Регламент підключення нового партнера' }, { text: 'Баланс віддали / отримали по кожній локації' }, { text: 'Передача операційної рутини вашій команді' } ], gate: 'Чи тримає ваша команда периметр без нашої щоденної участі.' }
     ],
     contact: {
       eyebrow: 'Контакт',
@@ -444,8 +591,33 @@ const COPY = {
       winLabel: 'Win — win — win',
       winTitle: 'An exchange has to pay off for three sides, or it never repeats.',
       seeLabel: 'What you see',
-      seeTitle: 'Transparency without dashboards nobody opens.'
+      seeTitle: 'Transparency without dashboards nobody opens.',
+      flowLabel: 'Operational flow',
+      flowTitle: 'Three actions. No new till, no integration with your software.',
+      flowStamp: 'Under 10 seconds at the till',
+      flowNote: 'Codes are not generated at the moment of issue — they are minted in advance as a pool and simply assigned to a guest. Issuing therefore does not depend on network speed, and the queue never stops.',
+      mechLabel: 'Mechanics',
+      mechTitle: 'Four elements the perimeter is assembled from.',
+      resLabel: 'Operational resilience',
+      resTitle: 'Designed for Ukrainian reality, not for a showroom.',
+      resLede: 'Air raids, blackouts, moving locations and cautious staff are daily conditions, not exceptions. Each one is built into the mechanic rather than a footnote in the contract.'
     },
+    notList: [
+      { text: 'Not a points coalition: no shared currency and no rewards catalogue.' },
+      { text: 'Not a separate app the guest must install and open every day.' },
+      { text: 'Not an integration with your POS — the platform runs alongside it.' }
+    ],
+    flow: [
+      { no: '01', actor: 'Business A', title: 'Issue', body: 'The cashier opens a lightweight web interface inside a messenger, identifies the guest by phone number or scans their code, and issues the neighbour’s voucher. One action, no forms: the profile is completed later, on the guest’s own phone.', time: '≈ 10 seconds' },
+      { no: '02', actor: 'Guest', title: 'Carry', body: 'The voucher arrives in a messenger or lands in Wallet — where the guest already is every day. Validity is time-boxed so the gesture stays a reason to walk in today, not an open-ended discount.', time: '24–72 hours' },
+      { no: '03', actor: 'Business B', title: 'Redeem', body: 'Staff scan the code, the system checks its status and burns it. The receipt is matched automatically from the last transactions; the amount can be entered by hand when needed.', time: '≈ 8 seconds' }
+    ],
+    resilience: [
+      { title: 'Offline mode', body: 'Losing connectivity does not block redemption: the operation is recorded locally and replayed into the queue. SKU detail is lost, the visit and the amount are not.' },
+      { title: 'Air-raid discount', body: 'The pilot’s financial model is built on 83–85% of baseline traffic. Dead time is planned for, not written off as variance.' },
+      { title: 'Movable location map', body: 'Points switch in and out of the perimeter instantly — a partner relocating, closing or being dismantled does not break the remaining pairs.' },
+      { title: 'Legal staff incentive', body: 'The bonus for an issued voucher accrues to an internal balance and is paid out officially. No card-to-card transfers — and no fear of an inspection.' }
+    ],
     mechanics: [
       { no: '01', title: 'Cross-vouchers', body: 'A guest of business A receives a named gesture at business B: not an everyone-gets-it discount, but a reason to walk in today. The voucher lives in the channel the guest already uses.' },
       { no: '02', title: 'Hyperlocal perimeter', body: 'Partners are matched within two or three blocks, so the walk between them is a natural part of the day. Not a formal 500-metre rule: the boundary follows pedestrian routes, not a compass.' },
@@ -485,12 +657,25 @@ const COPY = {
       eyebrow: 'Approach',
       title: 'Diagnose → pilot → scale.',
       lede: 'No year-long programmes. Every stage has its own result and its own exit point.',
-      closer: 'Ready to look at your perimeter together?'
+      closer: 'Ready to look at your perimeter together?',
+      outLabel: 'Stage output',
+      gateLabel: 'Decision gate',
+      sideLabel: 'Division of roles',
+      sideTitle: 'What we do, and what stays with you.'
     },
+    approachRules: [
+      { text: 'Each stage is paid for separately and may be the last one.' },
+      { text: 'The pilot runs on 3–5 locations, not across the network.' },
+      { text: 'Decisions follow the stage’s numbers, not an annual plan.' }
+    ],
+    sides: [
+      { who: 'Synergis', items: [ { text: 'The perimeter map and partner matching around you' }, { text: 'Mechanics, voucher carriers and staff workplaces' }, { text: 'Shift training and spoken scripts at the till' }, { text: 'Weekly analytics and a recommendation at every gate' } ] },
+      { who: 'Your team', items: [ { text: 'Access to locations and sign-off from site managers' }, { text: 'Two or three hours of shift time for training before launch' }, { text: 'Traffic and average ticket data for the prior period' }, { text: 'One accountable person on your side for the whole pilot' } ] }
+    ],
     steps: [
-      { no: '01', dur: '2–3 weeks', title: 'Diagnose', body: 'We look at the location the way a guest does: routes, neighbours, peak hours, friction at the till and on the floor. In parallel: the state of processes and data.', out: [ { text: 'A perimeter map: who is nearby and who is not a competitor' }, { text: 'Cross-mechanic hypotheses with expected effect' }, { text: 'A list of what must be fixed before launch' } ] },
-      { no: '02', dur: '6–8 weeks', title: 'Pilot', body: 'A limited perimeter, two or three partner pairs, one or two mechanics. The goal is not scale but a credible signal: does the guest return, and can the staff carry it?', out: [ { text: 'Live cross-vouchers and package offers' }, { text: 'A weekly review rhythm' }, { text: 'A decision: expand, retune or stop' } ] },
-      { no: '03', dur: 'onward', title: 'Scale', body: 'The perimeter grows by blocks, not by cities. Every new partner pair goes through the same short cycle: launch, measure, decide.', out: [ { text: 'A protocol for onboarding a new partner' }, { text: 'Given / received balance per location' }, { text: 'Handover of the operating routine to your team' } ] }
+      { no: '01', dur: '2–3 weeks', title: 'Diagnose', body: 'We look at the location the way a guest does: routes, neighbours, peak hours, friction at the till and on the floor. In parallel: the state of processes and data.', out: [ { text: 'A perimeter map: who is nearby and who is not a competitor' }, { text: 'Cross-mechanic hypotheses with expected effect' }, { text: 'A list of what must be fixed before launch' } ], gate: 'Whether the perimeter holds enough non-competing neighbours to be worth a pilot.' },
+      { no: '02', dur: '6–8 weeks', title: 'Pilot', body: 'A limited perimeter, two or three partner pairs, one or two mechanics. The goal is not scale but a credible signal: does the guest return, and can the staff carry it?', out: [ { text: 'Live cross-vouchers and package offers' }, { text: 'A weekly review rhythm' }, { text: 'A decision: expand, retune or stop' } ], gate: 'Whether guests return and whether staff carry the mechanic at peak hours.' },
+      { no: '03', dur: 'onward', title: 'Scale', body: 'The perimeter grows by blocks, not by cities. Every new partner pair goes through the same short cycle: launch, measure, decide.', out: [ { text: 'A protocol for onboarding a new partner' }, { text: 'Given / received balance per location' }, { text: 'Handover of the operating routine to your team' } ], gate: 'Whether your team holds the perimeter without our daily involvement.' }
     ],
     contact: {
       eyebrow: 'Contact',
@@ -522,13 +707,14 @@ const COPY = {
 };
 
 class Component extends DCLogic {
-  state = { lang: 'ua', route: '/', sent: false, wide: true };
+  state = { lang: 'ua', route: '/', sent: false, wide: true, w: 1440 };
 
   componentDidMount() {
     this.applyTheme();
     this.onResize = () => {
-      const wide = window.innerWidth > 768;
-      if (wide !== this.state.wide) this.setState({ wide });
+      const w = window.innerWidth;
+      const wide = w > 768;
+      if (wide !== this.state.wide || Math.abs(w - this.state.w) > 8) this.setState({ wide, w });
     };
     this.onResize();
     window.addEventListener('resize', this.onResize);
@@ -573,6 +759,16 @@ class Component extends DCLogic {
       atContact: route === '/contact',
       edge: this.props.signalEdge ?? true,
       wide: this.state.wide,
+      colsHero: this.state.w > 940 ? 'minmax(0,1.55fr) minmax(0,1fr)' : '1fr',
+      cols3: this.state.w > 900 ? 'repeat(3,minmax(0,1fr))' : '1fr',
+      cols2: this.state.w > 720 ? 'repeat(2,minmax(0,1fr))' : '1fr',
+      cols4: this.state.w > 1080 ? 'repeat(4,minmax(0,1fr))' : this.state.w > 640 ? 'repeat(2,minmax(0,1fr))' : '1fr',
+      colsSee: this.state.w > 940 ? 'minmax(0,1fr) minmax(0,1.9fr)' : '1fr',
+      notList: t.notList,
+      flow: t.flow,
+      resilience: t.resilience,
+      approachRules: t.approachRules,
+      sides: t.sides,
       navBasis: this.state.wide ? 'auto' : '100%',
       navOrder: this.state.wide ? 0 : 3,
       navPad: this.state.wide ? '0' : '10px',
