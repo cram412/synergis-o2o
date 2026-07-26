@@ -58,7 +58,7 @@
           <svg width="104" height="104" viewBox="0 0 100 100" fill="none" aria-label="Synergis" style="width:clamp(58px,9.5vw,104px);height:auto"><clipPath id="hero1"><circle cx="38" cy="50" r="27"></circle></clipPath><circle cx="62" cy="50" r="27" fill="var(--accent,#047857)" clip-path="url(#hero1)"></circle><circle cx="38" cy="50" r="27" stroke="#15232c" stroke-width="2"></circle><circle cx="62" cy="50" r="27" stroke="#15232c" stroke-width="2"></circle></svg>
           <div style="font-family:'Archivo',sans-serif;font-weight:500;font-size:clamp(46px,9.6vw,92px);line-height:1;letter-spacing:-0.035em;color:#15232c">Synergis</div>
         </div>
-        <h1 style="font-family:var(--display);font-weight:400;font-size:clamp(29px,4.6vw,44px);line-height:1.22;letter-spacing:-0.015em;max-width:19ch;margin-bottom:28px">{{ t.home.title }}</h1>
+        <h1 style="font-family:var(--display);font-weight:400;font-size:clamp(29px,4.6vw,44px);line-height:1.22;letter-spacing:-0.015em;max-width:30ch;margin-bottom:28px">{{ t.home.title }}</h1>
         <p style="font-size:clamp(17px,1.7vw,19px);line-height:1.65;color:#5a6d78;max-width:60ch;margin-bottom:44px">{{ t.home.lede }}</p>
         <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
           <a href="#/contact" onClick="{{ goContact }}" style="background:var(--accent,#047857);color:#ffffff;font-size:15px;font-weight:600;padding:15px 28px;border-radius:3px" style-hover="background:#065f46;color:#ffffff">{{ t.home.cta1 }}</a>
@@ -111,7 +111,7 @@
       <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:{{ colsHero }};gap:clamp(28px,5vw,72px);align-items:end">
         <div>
           <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(21,35,44,0.5);margin-bottom:26px">{{ t.platform.eyebrow }}</div>
-          <h1 style="font-family:var(--display);font-weight:400;font-size:clamp(30px,4.4vw,46px);line-height:1.2;letter-spacing:-0.015em;max-width:18ch;margin-bottom:24px">{{ t.platform.title }}</h1>
+          <h1 style="font-family:var(--display);font-weight:400;font-size:clamp(30px,4.4vw,46px);line-height:1.2;letter-spacing:-0.015em;max-width:21ch;margin-bottom:24px">{{ t.platform.title }}</h1>
           <p style="font-size:clamp(17px,1.7vw,19px);line-height:1.65;color:#5a6d78;max-width:52ch">{{ t.platform.lede }}</p>
         </div>
         <div style="display:flex;flex-direction:column;gap:14px;border-left:1px solid rgba(21,35,44,0.14);padding-left:clamp(20px,2.5vw,32px)">
@@ -127,7 +127,7 @@
         <div style="display:flex;align-items:baseline;justify-content:space-between;gap:32px;flex-wrap:wrap;margin-bottom:clamp(32px,4vw,52px)">
           <div>
             <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(21,35,44,0.5);margin-bottom:20px">{{ t.platform.flowLabel }}</div>
-            <h2 style="font-family:var(--display);font-weight:400;font-size:clamp(24px,3.2vw,31px);line-height:1.3;max-width:24ch">{{ t.platform.flowTitle }}</h2>
+            <h2 style="font-family:var(--display);font-weight:400;font-size:clamp(24px,3.2vw,31px);line-height:1.3;max-width:33ch">{{ t.platform.flowTitle }}</h2>
           </div>
           <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;color:var(--accent,#047857);border:1px solid rgba(4,120,87,0.3);border-radius:3px;padding:9px 14px">{{ t.platform.flowStamp }}</div>
         </div>
@@ -188,7 +188,7 @@
     <section style="background:#ffffff;border-bottom:1px solid rgba(21,35,44,0.1);padding:clamp(53px,7vw,88px) clamp(20px,5vw,40px)">
       <div style="max-width:1180px;margin:0 auto">
         <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(21,35,44,0.5);margin-bottom:22px">{{ t.platform.winLabel }}</div>
-        <h2 style="font-family:var(--display);font-weight:400;font-size:clamp(24px,3.2vw,31px);line-height:1.3;margin-bottom:clamp(30px,4vw,48px);max-width:26ch">{{ t.platform.winTitle }}</h2>
+        <h2 style="font-family:var(--display);font-weight:400;font-size:clamp(24px,3.2vw,31px);line-height:1.3;margin-bottom:clamp(30px,4vw,48px);max-width:35ch">{{ t.platform.winTitle }}</h2>
         <div style="display:grid;grid-template-columns:{{ cols3 }};gap:clamp(28px,3vw,40px)">
           <sc-for list="{{ wins }}" as="w" hint-placeholder-count="3">
             <div style="border-top:1px solid var(--accent,#047857);padding-top:22px">
@@ -231,7 +231,7 @@
       <sc-if value="{{ edge }}"><div style="position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--accent,#047857)"></div></sc-if>
       <div style="max-width:1180px;margin:0 auto">
         <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(21,35,44,0.5);margin-bottom:26px">{{ t.advisory.eyebrow }}</div>
-        <h1 style="font-family:var(--display);font-weight:400;font-size:clamp(30px,4.8vw,46px);line-height:1.2;letter-spacing:-0.015em;max-width:18ch;margin-bottom:24px">{{ t.advisory.title }}</h1>
+        <h1 style="font-family:var(--display);font-weight:400;font-size:clamp(30px,4.8vw,46px);line-height:1.2;letter-spacing:-0.015em;max-width:30ch;margin-bottom:24px">{{ t.advisory.title }}</h1>
         <p style="font-size:clamp(17px,1.7vw,19px);line-height:1.65;color:#5a6d78;max-width:60ch">{{ t.advisory.lede }}</p>
       </div>
     </section>
