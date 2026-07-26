@@ -30,7 +30,7 @@
         <svg width="26" height="26" viewBox="0 0 100 100" fill="none" aria-label="Synergis"><clipPath id="nvm"><circle cx="38" cy="50" r="27"></circle></clipPath><circle cx="62" cy="50" r="27" fill="var(--accent,#047857)" clip-path="url(#nvm)"></circle><circle cx="38" cy="50" r="27" stroke="#15232c" stroke-width="2.2"></circle><circle cx="62" cy="50" r="27" stroke="#15232c" stroke-width="2.2"></circle></svg>
         <span style="font-family:'Archivo',sans-serif;font-weight:500;font-size:19px;letter-spacing:-0.02em;color:#15232c">Synergis</span>
       </a>
-      <nav style="display:flex;align-items:center;gap:clamp(14px,2.2vw,28px);flex-wrap:wrap">
+      <nav style="display:flex;align-items:center;gap:clamp(14px,2.2vw,28px);flex-wrap:wrap;flex-basis:{{ navBasis }};order:{{ navOrder }};padding-top:{{ navPad }}">
         <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="5">
           <a href="{{ item.href }}" onClick="{{ item.go }}" style="font-size:14.5px;font-weight:500;padding-bottom:3px;border-bottom:1px solid transparent;color:{{ item.color }};border-bottom-color:{{ item.rule }}" style-hover="color:#15232c">{{ item.label }}</a>
         </sc-for>
@@ -41,7 +41,9 @@
           <span style="color:rgba(21,35,44,0.25)">|</span>
           <a href="#en" onClick="{{ setEn }}" style="color:{{ enColor }}">EN</a>
         </div>
-        <a href="#/contact" onClick="{{ goContact }}" style="background:var(--accent,#047857);color:#ffffff;font-size:14px;font-weight:600;padding:10px 20px;border-radius:3px" style-hover="background:#065f46;color:#ffffff">{{ t.nav.cta }}</a>
+        <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+          <a href="#/contact" onClick="{{ goContact }}" style="background:var(--accent,#047857);color:#ffffff;font-size:14px;font-weight:600;padding:10px 20px;border-radius:3px" style-hover="background:#065f46;color:#ffffff">{{ t.nav.cta }}</a>
+        </sc-if>
       </div>
     </div>
   </header>
@@ -520,9 +522,19 @@ const COPY = {
 };
 
 class Component extends DCLogic {
-  state = { lang: 'ua', route: '/', sent: false };
+  state = { lang: 'ua', route: '/', sent: false, wide: true };
 
-  componentDidMount() { this.applyTheme(); }
+  componentDidMount() {
+    this.applyTheme();
+    this.onResize = () => {
+      const wide = window.innerWidth > 768;
+      if (wide !== this.state.wide) this.setState({ wide });
+    };
+    this.onResize();
+    window.addEventListener('resize', this.onResize);
+  }
+
+  componentWillUnmount() { window.removeEventListener('resize', this.onResize); }
   componentDidUpdate() { this.applyTheme(); }
 
   applyTheme() {
@@ -560,6 +572,10 @@ class Component extends DCLogic {
       atApproach: route === '/approach',
       atContact: route === '/contact',
       edge: this.props.signalEdge ?? true,
+      wide: this.state.wide,
+      navBasis: this.state.wide ? 'auto' : '100%',
+      navOrder: this.state.wide ? 0 : 3,
+      navPad: this.state.wide ? '0' : '10px',
       goHome: this.nav('/'),
       goPlatform: this.nav('/platform'),
       goContact: this.nav('/contact'),
