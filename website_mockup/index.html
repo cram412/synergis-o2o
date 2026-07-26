@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600&family=IBM+Plex+Mono:wght@400;500&family=Literata:opsz,wght@7..72,400;7..72,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --accent: #047857; --signal: #10b981; --display: 'Literata', Georgia, serif; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #f2f6f8; -webkit-font-smoothing: antialiased; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { color: #065f46; }
+  input, textarea, button { font: inherit; color: inherit; }
+  ::placeholder { color: rgba(90,109,120,0.55); }
+</style>
+</helmet>
+<div style="min-height:100vh;background:#f2f6f8;font-family:'Manrope',system-ui,sans-serif;color:#15232c;font-size:16px;line-height:1.55;text-wrap:pretty">
+
+  <header style="position:sticky;top:0;z-index:30;background:rgba(242,246,248,0.9);backdrop-filter:blur(12px);border-bottom:1px solid rgba(21,35,44,0.1)">
+    <div style="max-width:1180px;margin:0 auto;padding:14px clamp(18px,4vw,40px);display:flex;align-items:center;justify-content:space-between;gap:clamp(14px,2.4vw,36px);flex-wrap:wrap">
+      <a href="#/" onClick="{{ goHome }}" style="display:flex;align-items:center;gap:11px;flex-shrink:0">
+        <svg width="26" height="26" viewBox="0 0 100 100" fill="none" aria-label="Synergis"><clipPath id="nvm"><circle cx="38" cy="50" r="27"></circle></clipPath><circle cx="62" cy="50" r="27" fill="var(--accent,#047857)" clip-path="url(#nvm)"></circle><circle cx="38" cy="50" r="27" stroke="#15232c" stroke-width="2.2"></circle><circle cx="62" cy="50" r="27" stroke="#15232c" stroke-width="2.2"></circle></svg>
+        <span style="font-family:'Archivo',sans-serif;font-weight:500;font-size:19px;letter-spacing:-0.02em;color:#15232c">Synergis</span>
+      </a>
+      <nav style="display:flex;align-items:center;gap:clamp(14px,2.2vw,28px);flex-wrap:wrap">
+        <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="5">
+          <a href="{{ item.href }}" onClick="{{ item.go }}" style="font-size:14.5px;font-weight:500;padding-bottom:3px;border-bottom:1px solid transparent;color:{{ item.color }};border-bottom-color:{{ item.rule }}" style-hover="color:#15232c">{{ item.label }}</a>
+        </sc-for>
+      </nav>
+      <div style="display:flex;align-items:center;gap:20px;flex-shrink:0">
+        <div style="display:flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.08em">
+          <a href="#ua" onClick="{{ setUa }}" style="color:{{ uaColor }}">UA</a>
+          <span style="color:rgba(21,35,44,0.25)">|</span>
+          <a href="#en" onClick="{{ setEn }}" style="color:{{ enColor }}">EN</a>
+        </div>
+        <a href="#/contact" onClick="{{ goContact }}" style="background:var(--accent,#047857);color:#ffffff;font-size:14px;font-weight:600;padding:10px 20px;border-radius:3px" style-hover="background:#065f46;color:#ffffff">{{ t.nav.cta }}</a>
+      </div>
+    </div>
+  </header>
+
+  <sc-if value="{{ atHome }}" hint-placeholder-val="{{ true }}">
+  <main>
+    <section style="position:relative;padding:clamp(67px,7vw,112px) clamp(20px,5vw,40px) clamp(62px,6vw,104px)">
+      <sc-if value="{{ edge }}" hint-placeholder-val="{{ true }}"><div style="position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--accent,#047857)"></div></sc-if>
+      <div style="max-width:1180px;margin:0 auto">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(21,35,44,0.5);margin-bottom:56px">{{ t.home.eyebrow }}</div>
+        <div style="display:flex;align-items:center;gap:clamp(18px,3.4vw,34px);margin-bottom:clamp(40px,6vw,64px);flex-wrap:wrap">
+          <svg width="104" height="104" viewBox="0 0 100 100" fill="none" aria-label="Synergis" style="width:clamp(58px,9.5vw,104px);height:auto"><clipPath id="hero1"><circle cx="38" cy="50" r="27"></circle></clipPath><circle cx="62" cy="50" r="27" fill="var(--accent,#047857)" clip-path="url(#hero1)"></circle><circle cx="38" cy="50" r="27" stroke="#15232c" stroke-width="2"></circle><circle cx="62" cy="50" r="27" stroke="#15232c" stroke-width="2"></circle></svg>
+          <div style="font-family:'Archivo',sans-serif;font-weight:500;font-size:clamp(46px,9.6vw,92px);line-height:1;letter-spacing:-0.035em;color:#15232c">Synergis</div>
+        </div>
+        <h1 style="font-family:var(--display);font-weight:400;font-size:clamp(29px,4.6vw,44px);line-height:1.22;letter-spacing:-0.015em;max-width:19ch;margin-bottom:28px">{{ t.home.title }}</h1>
+        <p style="font-size:clamp(17px,1.7vw,19px);line-height:1.65;color:#5a6d78;max-width:60ch;margin-bottom:44px">{{ t.home.lede }}</p>
+        <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+          <a href="#/contact" onClick="{{ goContact }}" style="background:var(--accent,#047857);color:#ffffff;font-size:15px;font-weight:600;padding:15px 28px;border-radius:3px" style-hover="background:#065f46;color:#ffffff">{{ t.home.cta1 }}</a>
+          <a href="#/platform" onClick="{{ goPlatform }}" style="color:#15232c;font-size:15px;font-weight:600;padding:15px 26px;border-radius:3px;border:1px solid rgba(21,35,44,0.22)" style-hover="border-color:#15232c;color:#15232c">{{ t.home.cta2 }}</a>
+        </div>
+      </div>
+    </section>
+
+    <section style="background:#ffffff;border-top:1px solid rgba(21,35,44,0.1);border-bottom:1px solid rgba(21,35,44,0.1);padding:clamp(58px,7vw,96px) clamp(20px,5vw,40px)">
+      <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:clamp(40px,6vw,88px);align-items:start">
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(21,35,44,0.5);margin-bottom:22px">{{ t.home.storyLabel }}</div>
+          <h2 style="font-family:var(--display);font-weight:400;font-size:clamp(25px,3.4vw,33px);line-height:1.3;letter-spacing:-0.01em;margin-bottom:30px;max-width:24ch">{{ t.home.storyTitle }}</h2>
+          <div style="display:flex;flex-direction:column;gap:20px;font-size:17px;line-height:1.7;color:#5a6d78;max-width:62ch">
+            <p>{{ t.home.p1 }}</p>
+            <p>{{ t.home.p2 }}</p>
+            <p>{{ t.home.p3 }}</p>
+          </div>
+        </div>
+        <div style="border:1px solid rgba(21,35,44,0.12);border-radius:4px;padding:clamp(28px,4vw,44px) clamp(22px,3vw,36px);background:#f8fafb">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent,#047857);text-align:center;margin-bottom:34px">{{ t.home.diagCap }}</div>
+          <div style="display:flex;align-items:center;justify-content:center;margin-bottom:30px">
+            <div style="width:132px;height:132px;border:1px solid rgba(21,35,44,0.32);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#15232c;margin-right:-40px;background:rgba(255,255,255,0.7)">A</div>
+            <div style="width:132px;height:132px;border:1px solid rgba(21,35,44,0.32);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#15232c;background:rgba(4,120,87,0.06)">B</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px;font-size:14px;line-height:1.55;color:#5a6d78">
+            <div style="display:flex;gap:12px"><span style="font-family:'IBM Plex Mono',monospace;color:var(--accent,#047857);font-size:12px;padding-top:2px">A</span><span>{{ t.home.diagA }}</span></div>
+            <div style="display:flex;gap:12px"><span style="font-family:'IBM Plex Mono',monospace;color:var(--accent,#047857);font-size:12px;padding-top:2px">B</span><span>{{ t.home.diagB }}</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding:clamp(53px,7vw,88px) clamp(20px,5vw,40px)">
+      <div style="max-width:1180px;margin:0 auto;background:var(--accent,#047857);border-radius:4px;padding:clamp(32px,4.5vw,52px) clamp(24px,4.5vw,56px);display:flex;align-items:center;justify-content:space-between;gap:48px;flex-wrap:wrap">
+        <div style="max-width:56ch">
+          <div style="font-family:var(--display);font-weight:400;font-size:clamp(23px,3vw,29px);line-height:1.3;color:#ffffff;margin-bottom:12px">{{ t.band.title }}</div>
+          <div style="font-size:16px;line-height:1.6;color:rgba(238,243,245,0.82)">{{ t.band.sub }}</div>
+        </div>
+        <a href="#/contact" onClick="{{ goContact }}" style="background:#eef3f5;color:#15232c;font-size:15px;font-weight:600;padding:15px 28px;border-radius:3px;white-space:nowrap" style-hover="background:#ffffff;color:#15232c">{{ t.band.cta }}</a>
+      </div>
+    </section>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ atPlatform }}">
+  <main>
+    <section style="position:relative;padding:clamp(53px,7vw,88px) clamp(20px,5vw,40px) clamp(38px,6vw,64px)">
+      <sc-if value="{{ edge }}"><div style="position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--accent,#047857)"></div></sc-if>
+      <div style="max-width:1180px;margin:0 auto">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(21,35,44,0.5);margin-bottom:26px">{{ t.platform.eyebrow }}</div>
+        <h1 style="font-family:var(--display);font-weight:400;font-size:clamp(30px,4.8vw,46px);line-height:1.2;letter-spacing:-0.015em;max-width:20ch;margin-bottom:24px">{{ t.platform.title }}</h1>
+        <p style="font-size:clamp(17px,1.7vw,19px);line-height:1.65;color:#5a6d78;max-width:58ch">{{ t.platform.lede }}</p>
+      </div>
+    </section>
+    <section style="padding:0 clamp(20px,5vw,40px) clamp(52px,6vw,88px)">
+      <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1px;background:rgba(21,35,44,0.12);border:1px solid rgba(21,35,44,0.12);border-radius:4px;overflow:hidden">
+        <sc-for list="{{ mechanics }}" as="m" hint-placeholder-count="4">
+          <div style="background:#ffffff;padding:clamp(28px,4vw,44px) clamp(24px,3.5vw,40px)">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em;color:var(--accent,#047857);margin-bottom:20px">{{ m.no }}</div>
+            <h3 style="font-family:var(--display);font-weight:400;font-size:24px;line-height:1.3;margin-bottom:14px">{{ m.title }}</h3>
+            <p style="font-size:16px;line-height:1.7;color:#5a6d78">{{ m.body }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+    <section style="background:#ffffff;border-top:1px solid rgba(21,35,44,0.1);border-bottom:1px solid rgba(21,35,44,0.1);padding:clamp(53px,7vw,88px) clamp(20px,5vw,40px)">
+      <div style="max-width:1180px;margin:0 auto">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(21,35,44,0.5);margin-bottom:22px">{{ t.platform.winLabel }}</div>
+        <h2 style="font-family:var(--display);font-weight:400;font-size:clamp(24px,3.2vw,31px);line-height:1.3;margin-bottom:48px;max-width:26ch">{{ t.platform.winTitle }}</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:clamp(28px,3vw,40px)">
+          <sc-for list="{{ wins }}" as="w" hint-placeholder-count="3">
+            <div style="border-top:1px solid var(--accent,#047857);padding-top:22px">
+              <div style="font-size:15px;font-weight:600;margin-bottom:10px">{{ w.who }}</div>
+              <p style="font-size:16px;line-height:1.7;color:#5a6d78">{{ w.gain }}</p>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+    <section style="padding:clamp(48px,7vw,80px) clamp(20px,5vw,40px) clamp(58px,6vw,96px)">
+      <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:clamp(32px,5vw,72px);align-items:start">
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(21,35,44,0.5);margin-bottom:18px">{{ t.platform.seeLabel }}</div>
+          <h2 style="font-family:var(--display);font-weight:400;font-size:clamp(22px,2.7vw,27px);line-height:1.32">{{ t.platform.seeTitle }}</h2>
+        </div>
+        <div style="display:flex;flex-direction:column">
+          <sc-for list="{{ seeItems }}" as="s" hint-placeholder-count="4">
+            <div style="display:flex;gap:28px;padding:20px 0;border-bottom:1px solid rgba(21,35,44,0.12)">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;color:rgba(21,35,44,0.4);width:32px;flex-shrink:0;padding-top:4px">{{ s.no }}</div>
+              <div style="font-size:16.5px;line-height:1.6;color:#15232c">{{ s.text }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ atAdvisory }}">
+  <main>
+    <section style="position:relative;padding:clamp(53px,7vw,88px) clamp(20px,5vw,40px) clamp(38px,6vw,64px)">
+      <sc-if value="{{ edge }}"><div style="position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--accent,#047857)"></div></sc-if>
+      <div style="max-width:1180px;margin:0 auto">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(21,35,44,0.5);margin-bottom:26px">{{ t.advisory.eyebrow }}</div>
+        <h1 style="font-family:var(--display);font-weight:400;font-size:clamp(30px,4.8vw,46px);line-height:1.2;letter-spacing:-0.015em;max-width:18ch;margin-bottom:24px">{{ t.advisory.title }}</h1>
+        <p style="font-size:clamp(17px,1.7vw,19px);line-height:1.65;color:#5a6d78;max-width:60ch">{{ t.advisory.lede }}</p>
+      </div>
+    </section>
+    <section style="padding:clamp(14px,7vw,24px) clamp(20px,5vw,40px) clamp(53px,6vw,88px)">
+      <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:20px">
+        <sc-for list="{{ advisoryBlocks }}" as="b" hint-placeholder-count="2">
+          <div style="background:#ffffff;border:1px solid rgba(21,35,44,0.12);border-radius:4px;padding:clamp(28px,4vw,44px) clamp(24px,3.5vw,40px)">
+            <h3 style="font-family:var(--display);font-weight:400;font-size:25px;line-height:1.3;margin-bottom:16px">{{ b.title }}</h3>
+            <p style="font-size:16px;line-height:1.7;color:#5a6d78;margin-bottom:26px">{{ b.body }}</p>
+            <div style="display:flex;flex-direction:column;gap:11px">
+              <sc-for list="{{ b.points }}" as="p" hint-placeholder-count="3">
+                <div style="display:flex;gap:12px;font-size:15.5px;line-height:1.55;color:#15232c"><span style="color:var(--accent,#047857);font-family:'IBM Plex Mono',monospace;font-size:12px;padding-top:3px">—</span><span>{{ p.text }}</span></div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+    <section style="background:#ffffff;border-top:1px solid rgba(21,35,44,0.1);border-bottom:1px solid rgba(21,35,44,0.1);padding:clamp(48px,7vw,80px) clamp(20px,5vw,40px)">
+      <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(36px,5vw,72px);align-items:center">
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(21,35,44,0.5);margin-bottom:20px">{{ t.advisory.bridgeLabel }}</div>
+          <h2 style="font-family:var(--display);font-weight:400;font-size:clamp(24px,3vw,30px);line-height:1.3;margin-bottom:20px">{{ t.advisory.bridgeTitle }}</h2>
+          <p style="font-size:17px;line-height:1.7;color:#5a6d78;margin-bottom:28px">{{ t.advisory.bridgeBody }}</p>
+          <a href="#/platform" onClick="{{ goPlatform }}" style="font-size:15px;font-weight:600;color:var(--accent,#047857);border-bottom:1px solid rgba(4,120,87,0.4);padding-bottom:2px">{{ t.advisory.bridgeLink }}</a>
+        </div>
+        <div style="border:1px solid rgba(21,35,44,0.12);border-radius:4px;padding:40px;background:#f8fafb;display:flex;flex-direction:column;gap:18px">
+          <sc-for list="{{ bridgeSteps }}" as="s" hint-placeholder-count="3">
+            <div style="display:flex;gap:20px;align-items:baseline">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;color:var(--accent,#047857);width:26px;flex-shrink:0">{{ s.no }}</div>
+              <div style="font-size:16px;line-height:1.6;color:#15232c">{{ s.text }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+    <section style="padding:clamp(48px,7vw,80px) clamp(20px,5vw,40px) clamp(58px,6vw,96px)">
+      <div style="max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap;border-top:1px solid rgba(21,35,44,0.14);padding-top:44px">
+        <div style="font-family:var(--display);font-weight:400;font-size:clamp(22px,2.7vw,27px);line-height:1.3;max-width:40ch">{{ t.band.title }}</div>
+        <a href="#/contact" onClick="{{ goContact }}" style="background:var(--accent,#047857);color:#ffffff;font-size:15px;font-weight:600;padding:15px 28px;border-radius:3px;white-space:nowrap" style-hover="background:#065f46;color:#ffffff">{{ t.home.cta1 }}</a>
+      </div>
+    </section>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ atApproach }}">
+  <main>
+    <section style="position:relative;padding:clamp(53px,7vw,88px) clamp(20px,5vw,40px) clamp(38px,6vw,64px)">
+      <sc-if value="{{ edge }}"><div style="position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--accent,#047857)"></div></sc-if>
+      <div style="max-width:1180px;margin:0 auto">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(21,35,44,0.5);margin-bottom:26px">{{ t.approach.eyebrow }}</div>
+        <h1 style="font-family:var(--display);font-weight:400;font-size:clamp(30px,4.8vw,46px);line-height:1.2;letter-spacing:-0.015em;max-width:20ch;margin-bottom:24px">{{ t.approach.title }}</h1>
+        <p style="font-size:clamp(17px,1.7vw,19px);line-height:1.65;color:#5a6d78;max-width:58ch">{{ t.approach.lede }}</p>
+      </div>
+    </section>
+    <section style="padding:clamp(19px,7vw,32px) clamp(20px,5vw,40px) clamp(58px,6vw,96px)">
+      <div style="max-width:1180px;margin:0 auto;display:flex;flex-direction:column">
+        <sc-for list="{{ steps }}" as="s" hint-placeholder-count="3">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:clamp(18px,3vw,40px);padding:44px 0;border-top:1px solid rgba(21,35,44,0.14);align-items:start">
+            <div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em;color:var(--accent,#047857);margin-bottom:8px">{{ s.no }}</div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.06em;color:rgba(21,35,44,0.42)">{{ s.dur }}</div>
+            </div>
+            <h3 style="font-family:var(--display);font-weight:400;font-size:clamp(23px,2.8vw,28px);line-height:1.28">{{ s.title }}</h3>
+            <div>
+              <p style="font-size:16.5px;line-height:1.7;color:#5a6d78;margin-bottom:20px">{{ s.body }}</p>
+              <div style="display:flex;flex-direction:column;gap:9px">
+                <sc-for list="{{ s.out }}" as="o" hint-placeholder-count="3">
+                  <div style="display:flex;gap:12px;font-size:15px;line-height:1.55;color:#15232c"><span style="color:var(--accent,#047857);font-family:'IBM Plex Mono',monospace;font-size:12px;padding-top:2px">—</span><span>{{ o.text }}</span></div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+        <div style="border-top:1px solid rgba(21,35,44,0.14);padding-top:44px;display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap">
+          <div style="font-family:var(--display);font-weight:400;font-size:clamp(22px,2.7vw,27px);line-height:1.3;max-width:40ch">{{ t.approach.closer }}</div>
+          <a href="#/contact" onClick="{{ goContact }}" style="background:var(--accent,#047857);color:#ffffff;font-size:15px;font-weight:600;padding:15px 28px;border-radius:3px;white-space:nowrap" style-hover="background:#065f46;color:#ffffff">{{ t.home.cta1 }}</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ atContact }}">
+  <main>
+    <section style="position:relative;padding:clamp(53px,7vw,88px) clamp(20px,5vw,40px) clamp(67px,6vw,112px)">
+      <sc-if value="{{ edge }}"><div style="position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--accent,#047857)"></div></sc-if>
+      <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:clamp(40px,6vw,88px);align-items:start">
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(21,35,44,0.5);margin-bottom:26px">{{ t.contact.eyebrow }}</div>
+          <h1 style="font-family:var(--display);font-weight:400;font-size:clamp(29px,4.4vw,42px);line-height:1.2;letter-spacing:-0.015em;margin-bottom:22px">{{ t.contact.title }}</h1>
+          <p style="font-size:18px;line-height:1.7;color:#5a6d78;margin-bottom:44px">{{ t.contact.lede }}</p>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(21,35,44,0.5);margin-bottom:18px">{{ t.contact.nextLabel }}</div>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <sc-for list="{{ nextSteps }}" as="n" hint-placeholder-count="3">
+              <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent,#047857);width:22px;flex-shrink:0">{{ n.no }}</span><span style="font-size:16px;line-height:1.6;color:#15232c">{{ n.text }}</span></div>
+            </sc-for>
+          </div>
+        </div>
+        <form onSubmit="{{ onSubmit }}" style="background:#ffffff;border:1px solid rgba(21,35,44,0.12);border-radius:4px;padding:clamp(28px,4vw,44px) clamp(24px,3.5vw,40px);display:flex;flex-direction:column;gap:24px">
+          <sc-for list="{{ fields }}" as="f" hint-placeholder-count="4">
+            <label style="display:flex;flex-direction:column;gap:9px">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(21,35,44,0.55)">{{ f.label }}</span>
+              <input type="text" placeholder="{{ f.ph }}" style="border:0;border-bottom:1px solid rgba(21,35,44,0.2);background:transparent;padding:9px 0;font-size:16px;outline:none;border-radius:0" style-focus="border-bottom-color:#047857"></input>
+            </label>
+          </sc-for>
+          <label style="display:flex;flex-direction:column;gap:9px">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(21,35,44,0.55)">{{ t.contact.msgLabel }}</span>
+            <textarea rows="4" placeholder="{{ t.contact.msgPh }}" style="border:1px solid rgba(21,35,44,0.2);background:transparent;padding:12px 14px;font-size:16px;outline:none;border-radius:3px;resize:vertical;line-height:1.6" style-focus="border-color:#047857"></textarea>
+          </label>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:4px">
+            <button type="submit" style="background:var(--accent,#047857);color:#ffffff;font-size:15px;font-weight:600;padding:14px 28px;border:0;border-radius:3px;cursor:pointer" style-hover="background:#065f46">{{ t.contact.submit }}</button>
+            <span style="font-size:13.5px;color:#5a6d78;max-width:30ch">{{ sentNote }}</span>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+  </sc-if>
+
+  <footer style="background:#15232c;padding:clamp(38px,7vw,64px) clamp(20px,5vw,40px) clamp(26px,6vw,44px)">
+    <div style="max-width:1180px;margin:0 auto">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:56px;flex-wrap:wrap;padding-bottom:40px;border-bottom:1px solid rgba(238,243,245,0.15)">
+        <div style="max-width:52ch">
+          <div style="display:flex;align-items:center;gap:11px;margin-bottom:18px">
+            <svg width="26" height="26" viewBox="0 0 100 100" fill="none" aria-label="Synergis"><clipPath id="ftm"><circle cx="38" cy="50" r="27"></circle></clipPath><circle cx="62" cy="50" r="27" fill="var(--signal,#10b981)" clip-path="url(#ftm)"></circle><circle cx="38" cy="50" r="27" stroke="#eef3f5" stroke-width="2.2"></circle><circle cx="62" cy="50" r="27" stroke="#eef3f5" stroke-width="2.2"></circle></svg>
+            <span style="font-family:'Archivo',sans-serif;font-weight:500;font-size:19px;letter-spacing:-0.02em;color:#eef3f5">Synergis</span>
+          </div>
+          <p style="font-size:15px;line-height:1.7;color:rgba(238,243,245,0.6)">{{ t.footer.line }}</p>
+        </div>
+        <nav style="display:flex;flex-direction:column;gap:11px">
+          <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="5">
+            <a href="{{ item.href }}" onClick="{{ item.go }}" style="font-size:14.5px;color:rgba(238,243,245,0.72)" style-hover="color:#ffffff">{{ item.label }}</a>
+          </sc-for>
+        </nav>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;padding-top:22px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;color:rgba(238,243,245,0.42)">
+        <span>© 2026 Synergis</span>
+        <span>{{ t.footer.meta }}</span>
+      </div>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#047857&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#047857&quot;,&quot;#0f766e&quot;,&quot;#15232c&quot;],&quot;section&quot;:&quot;Brand&quot;},&quot;displayFont&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;serif&quot;,&quot;options&quot;:[&quot;serif&quot;,&quot;sans&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Brand&quot;},&quot;signalEdge&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Brand&quot;}}">
+const COPY = {
+  ua: {
+    nav: { home: 'Головна', platform: 'Платформа', advisory: 'Супровід', approach: 'Підхід', contact: 'Контакт', cta: 'Стратегічна розмова' },
+    home: {
+      eyebrow: 'Продукти та супровід для офлайн-рітейлу',
+      title: 'Емоційна лояльність народжується за два квартали від вас.',
+      lede: 'Synergis — синергія між бізнесами: продукти та супровід, що з’єднують людей, трафік і процеси.',
+      cta1: 'Стратегічна розмова 15–30 хв',
+      cta2: 'Як це працює',
+      storyLabel: 'Лід-історія',
+      storyTitle: 'Сусідній трафік — актив, який ніхто не рахує.',
+      p1: 'Ваш гість щодня проходить повз кілька інших бізнесів у радіусі двох-трьох кварталів. Кав’ярня, оптика, барбершоп, пекарня, сервіс — жоден із них вам не конкурент, і кожен уже має вашого клієнта у себе в залі.',
+      p2: 'Synergis з’єднує ці потоки. Гість отримує особистий жест від сусіда, а не купон із загального каталогу. Це не коаліційна програма балів: немає спільної валюти, рейтингів і застосунку, який треба відкривати щодня. Є впізнаваний локальний обмін, який працює на емоцію, а не на знижку.',
+      p3: 'І вимірюється він не накопиченими балами, а поверненнями, середнім чеком і часткою гостей, які прийшли за рекомендацією сусіда.',
+      diagCap: '2–3 квартали · пішки',
+      diagA: 'Бізнес A передає гостю привід зайти до сусіда — сьогодні, поруч, іменно.',
+      diagB: 'Бізнес B приймає гостя з контекстом і повертає зустрічний потік.'
+    },
+    band: {
+      title: 'Почнімо зі стратегічної розмови.',
+      sub: '15–30 хвилин, без презентації. Ми розберемо ваш периметр і скажемо, чи є в ньому синергія.',
+      cta: 'Написати нам'
+    },
+    platform: {
+      eyebrow: 'Платформа',
+      title: 'Механіка, що працює на вулиці, а не в застосунку.',
+      lede: 'Чотири елементи. Жодного каталогу балів, жодної спільної валюти, жодного зайвого встановлення.',
+      winLabel: 'Win — win — win',
+      winTitle: 'Обмін має бути вигідним трьом сторонам, інакше він не повторюється.',
+      seeLabel: 'Що ви бачите',
+      seeTitle: 'Прозорість без панелей, які ніхто не відкриває.'
+    },
+    mechanics: [
+      { no: '01', title: 'Крос-ваучери', body: 'Гість бізнесу A отримує іменний жест у бізнесі B: не знижку «для всіх», а привід зайти саме сьогодні. Ваучер живе в тому каналі, яким гість уже користується.' },
+      { no: '02', title: 'Гіперлокальний периметр', body: 'Партнери підбираються в межах двох-трьох кварталів — так, щоб дорога між ними була природною частиною дня. Це не формальні 500 метрів: межу визначають пішохідні маршрути, а не циркуль.' },
+      { no: '03', title: 'QR · Wallet · месенджер', body: 'Видача і погашення там, де гість уже є: QR на чеку чи вітрині, картка у Wallet, підтвердження в месенджері. Персоналу — одна дія, гостю — жодного встановлення.' },
+      { no: '04', title: 'Пакетні пропозиції', body: 'Категорія або конкретний SKU у бізнесі A відкриває подарунковий продукт у бізнесі B. Умова прозора для гостя, керована для обох сторін і обмежена в часі.' }
+    ],
+    wins: [
+      { who: 'Гість', gain: 'Отримує доречний жест поруч із місцем, де вже перебуває, — і причину повернутися до обох.' },
+      { who: 'Бізнес A', gain: 'Підсилює власну лояльність чужим продуктом, не даючи знижки на свій чек.' },
+      { who: 'Бізнес B', gain: 'Отримує теплий трафік із контекстом і зобов’язанням відповісти взаємністю.' }
+    ],
+    seeItems: [
+      { no: '01', text: 'Скільки ваучерів видано і скільки погашено — по кожній парі партнерів.' },
+      { no: '02', text: 'Який зустрічний потік ви віддали і який отримали: баланс периметра.' },
+      { no: '03', text: 'Повторні візити гостей, що прийшли через сусіда.' },
+      { no: '04', text: 'Які пакетні пропозиції відпрацювали, а які варто зняти.' }
+    ],
+    advisory: {
+      eyebrow: 'Супровід',
+      title: 'Керованість — у кризі й у щоденних процесах.',
+      lede: 'Ми входимо там, де рішення вже не терплять відкладення, і залишаємось, доки процес не тримається без нас.',
+      bridgeLabel: 'Міст до продукту',
+      bridgeTitle: 'Спочатку — порядок. Потім — синергія.',
+      bridgeBody: 'Платформа не лікує зламаний процес. Тому супровід часто йде першим: ми доводимо операційну частину до стану, у якому крос-трафік не створює хаосу на касі та в залі. Далі периметр запускається як керований пілот.',
+      bridgeLink: 'Подивитись механіку платформи'
+    },
+    advisoryBlocks: [
+      { title: 'Антикризове управління', body: 'Коли падає виручка, тримається залишок і зростає відтік персоналу — потрібне не дослідження, а рішення й людина, яка бере на себе його виконання.', points: [ { text: 'Швидка діагностика грошового циклу та точок втрат' }, { text: 'План стабілізації на 30 / 60 / 90 днів' }, { text: 'Присутність поруч із командою, а не звіт поштою' } ] },
+      { title: 'Оптимізація процесів', body: 'Коли бізнес уже працює, але зростає повільніше за власні витрати — розбираємо операційний контур і повертаємо йому керованість.', points: [ { text: 'Ролі, зони відповідальності та ритм управління' }, { text: 'Стандарти обслуговування та касові сценарії' }, { text: 'Метрики, за якими рішення ухвалюються щотижня' } ] }
+    ],
+    bridgeSteps: [
+      { no: '01', text: 'Аудит операційного контуру та даних, які вже є.' },
+      { no: '02', text: 'Стабілізація процесів і підготовка персоналу до крос-механік.' },
+      { no: '03', text: 'Запуск периметра як пілота з чіткими межами відповідальності.' }
+    ],
+    approach: {
+      eyebrow: 'Підхід',
+      title: 'Діагностика → пілот → масштабування.',
+      lede: 'Ніяких програм на рік наперед. Кожен етап має власний результат і власну точку виходу.',
+      closer: 'Готові подивитися на свій периметр разом?'
+    },
+    steps: [
+      { no: '01', dur: '2–3 тижні', title: 'Діагностика', body: 'Ми дивимося на локацію так, як на неї дивиться гість: маршрути, сусіди, години пік, точки тертя на касі й у залі. Паралельно — стан процесів і даних.', out: [ { text: 'Карта периметра: хто поруч і хто вам не конкурент' }, { text: 'Гіпотези крос-механік з очікуваним ефектом' }, { text: 'Перелік того, що треба полагодити до старту' } ] },
+      { no: '02', dur: '6–8 тижнів', title: 'Пілот', body: 'Обмежений периметр, дві-три пари партнерів, одна-дві механіки. Мета — не масштаб, а достовірний сигнал: чи повертається гість і чи витримує це персонал.', out: [ { text: 'Живі крос-ваучери та пакетні пропозиції' }, { text: 'Тижневий ритм перегляду результатів' }, { text: 'Рішення: розширювати, переналаштувати чи зупинити' } ] },
+      { no: '03', dur: 'далі', title: 'Масштабування', body: 'Периметр розширюється кварталами, а не містами. Кожна нова пара партнерів проходить той самий короткий цикл: запуск, вимір, рішення.', out: [ { text: 'Регламент підключення нового партнера' }, { text: 'Баланс віддали / отримали по кожній локації' }, { text: 'Передача операційної рутини вашій команді' } ] }
+    ],
+    contact: {
+      eyebrow: 'Контакт',
+      title: 'Стратегічна розмова, 15–30 хвилин.',
+      lede: 'Ми поставимо кілька запитань про ваш периметр і формат трафіку — і скажемо чесно, чи є сенс продовжувати. Без презентації і без комерційної пропозиції на першій зустрічі.',
+      nextLabel: 'Що далі',
+      msgLabel: 'Коротко про завдання',
+      msgPh: 'Що зараз найбільше заважає?',
+      submit: 'Надіслати запит',
+      sent: 'Дякуємо — відповімо протягом робочого дня.',
+      idle: 'Відповідаємо протягом робочого дня.'
+    },
+    fields: [
+      { label: 'Ім’я', ph: 'Як до вас звертатися' },
+      { label: 'Компанія', ph: 'Назва бізнесу' },
+      { label: 'Місто та локація', ph: 'Наприклад: Львів, центр' },
+      { label: 'Email або Telegram', ph: 'Куди відповісти' }
+    ],
+    nextSteps: [
+      { no: '01', text: 'Ми відповідаємо і пропонуємо два слоти.' },
+      { no: '02', text: 'Розмова на 15–30 хвилин: ваш периметр і ваші цифри.' },
+      { no: '03', text: 'Короткий підсумок листом — з рекомендацією або з відмовою.' }
+    ],
+    footer: {
+      line: 'Synergis — синергія між бізнесами: продукти та супровід, що з’єднують людей, трафік і процеси.',
+      meta: 'Київ · Львів · Одеса'
+    }
+  },
+  en: {
+    nav: { home: 'Home', platform: 'Platform', advisory: 'Advisory', approach: 'Approach', contact: 'Contact', cta: 'Strategic call' },
+    home: {
+      eyebrow: 'Products and advisory for offline retail',
+      title: 'Emotional loyalty is born two blocks from your door.',
+      lede: 'Synergis — synergy between businesses: products and advisory that connect people, traffic, and processes.',
+      cta1: 'Strategic call, 15–30 min',
+      cta2: 'How it works',
+      storyLabel: 'Lead story',
+      storyTitle: 'Neighbouring traffic is an asset nobody counts.',
+      p1: 'Your guest walks past several other businesses within two or three blocks every day. A café, an optician, a barbershop, a bakery, a service point — none of them competes with you, and each already has your customer in the room.',
+      p2: 'Synergis connects those flows. The guest receives a personal gesture from a neighbour, not a coupon from a shared catalogue. This is not a points coalition: no common currency, no tiers, no app to open daily. It is a recognisable local exchange that works on emotion rather than discount.',
+      p3: 'And it is measured not in accumulated points but in returns, average ticket, and the share of guests who arrived on a neighbour’s recommendation.',
+      diagCap: '2–3 blocks · on foot',
+      diagA: 'Business A hands the guest a reason to step next door — today, nearby, by name.',
+      diagB: 'Business B receives a guest with context and returns the flow.'
+    },
+    band: {
+      title: 'Let’s start with a strategic call.',
+      sub: '15–30 minutes, no deck. We will look at your perimeter and tell you whether synergy is there.',
+      cta: 'Get in touch'
+    },
+    platform: {
+      eyebrow: 'Platform',
+      title: 'Mechanics built for the street, not for an app.',
+      lede: 'Four elements. No points catalogue, no shared currency, nothing to install.',
+      winLabel: 'Win — win — win',
+      winTitle: 'An exchange has to pay off for three sides, or it never repeats.',
+      seeLabel: 'What you see',
+      seeTitle: 'Transparency without dashboards nobody opens.'
+    },
+    mechanics: [
+      { no: '01', title: 'Cross-vouchers', body: 'A guest of business A receives a named gesture at business B: not an everyone-gets-it discount, but a reason to walk in today. The voucher lives in the channel the guest already uses.' },
+      { no: '02', title: 'Hyperlocal perimeter', body: 'Partners are matched within two or three blocks, so the walk between them is a natural part of the day. Not a formal 500-metre rule: the boundary follows pedestrian routes, not a compass.' },
+      { no: '03', title: 'QR · Wallet · messenger', body: 'Issued and redeemed where the guest already is: a QR on the receipt or window, a Wallet card, a confirmation in a messenger. One action for staff, no install for the guest.' },
+      { no: '04', title: 'Package offers', body: 'A category or a specific SKU at business A unlocks a gift product at business B. The condition is clear for the guest, controlled by both sides, and time-boxed.' }
+    ],
+    wins: [
+      { who: 'Guest', gain: 'Gets a relevant gesture next to where they already are — and a reason to return to both.' },
+      { who: 'Business A', gain: 'Strengthens its own loyalty with someone else’s product, without discounting its own ticket.' },
+      { who: 'Business B', gain: 'Receives warm traffic with context and an obligation to return the favour.' }
+    ],
+    seeItems: [
+      { no: '01', text: 'Vouchers issued and redeemed, per partner pair.' },
+      { no: '02', text: 'Flow given versus flow received: the balance of the perimeter.' },
+      { no: '03', text: 'Repeat visits from guests who arrived through a neighbour.' },
+      { no: '04', text: 'Which package offers worked and which should be retired.' }
+    ],
+    advisory: {
+      eyebrow: 'Advisory',
+      title: 'Control restored — in crisis and in everyday process.',
+      lede: 'We step in where decisions can no longer wait, and stay until the process holds without us.',
+      bridgeLabel: 'Bridge to the product',
+      bridgeTitle: 'Order first. Synergy second.',
+      bridgeBody: 'A platform does not fix a broken process. Advisory therefore often comes first: we bring operations to a state where cross-traffic creates no chaos at the till or on the floor. Only then is the perimeter launched as a managed pilot.',
+      bridgeLink: 'See the platform mechanics'
+    },
+    advisoryBlocks: [
+      { title: 'Crisis management', body: 'When revenue falls, stock sits still and staff turnover rises, what is needed is not a study but a decision — and someone who owns its execution.', points: [ { text: 'Rapid diagnosis of the cash cycle and loss points' }, { text: 'A 30 / 60 / 90-day stabilisation plan' }, { text: 'Presence beside the team, not a report by email' } ] },
+      { title: 'Process optimisation', body: 'When the business works but grows slower than its own cost base, we take the operating loop apart and give it back its control.', points: [ { text: 'Roles, ownership and a management rhythm' }, { text: 'Service standards and till scenarios' }, { text: 'Metrics that drive weekly decisions' } ] }
+    ],
+    bridgeSteps: [
+      { no: '01', text: 'Audit of the operating loop and the data you already have.' },
+      { no: '02', text: 'Stabilised processes and staff prepared for cross-mechanics.' },
+      { no: '03', text: 'The perimeter launched as a pilot with clear ownership.' }
+    ],
+    approach: {
+      eyebrow: 'Approach',
+      title: 'Diagnose → pilot → scale.',
+      lede: 'No year-long programmes. Every stage has its own result and its own exit point.',
+      closer: 'Ready to look at your perimeter together?'
+    },
+    steps: [
+      { no: '01', dur: '2–3 weeks', title: 'Diagnose', body: 'We look at the location the way a guest does: routes, neighbours, peak hours, friction at the till and on the floor. In parallel: the state of processes and data.', out: [ { text: 'A perimeter map: who is nearby and who is not a competitor' }, { text: 'Cross-mechanic hypotheses with expected effect' }, { text: 'A list of what must be fixed before launch' } ] },
+      { no: '02', dur: '6–8 weeks', title: 'Pilot', body: 'A limited perimeter, two or three partner pairs, one or two mechanics. The goal is not scale but a credible signal: does the guest return, and can the staff carry it?', out: [ { text: 'Live cross-vouchers and package offers' }, { text: 'A weekly review rhythm' }, { text: 'A decision: expand, retune or stop' } ] },
+      { no: '03', dur: 'onward', title: 'Scale', body: 'The perimeter grows by blocks, not by cities. Every new partner pair goes through the same short cycle: launch, measure, decide.', out: [ { text: 'A protocol for onboarding a new partner' }, { text: 'Given / received balance per location' }, { text: 'Handover of the operating routine to your team' } ] }
+    ],
+    contact: {
+      eyebrow: 'Contact',
+      title: 'A strategic call, 15–30 minutes.',
+      lede: 'We will ask a few questions about your perimeter and your traffic, then say honestly whether it is worth continuing. No deck and no proposal on the first call.',
+      nextLabel: 'What happens next',
+      msgLabel: 'Briefly about the task',
+      msgPh: 'What is getting in the way right now?',
+      submit: 'Send request',
+      sent: 'Thank you — we will reply within one business day.',
+      idle: 'We reply within one business day.'
+    },
+    fields: [
+      { label: 'Name', ph: 'How should we address you' },
+      { label: 'Company', ph: 'Business name' },
+      { label: 'City and location', ph: 'e.g. Lviv, city centre' },
+      { label: 'Email or Telegram', ph: 'Where to reply' }
+    ],
+    nextSteps: [
+      { no: '01', text: 'We reply and offer two slots.' },
+      { no: '02', text: 'A 15–30 minute call: your perimeter and your numbers.' },
+      { no: '03', text: 'A short written summary — with a recommendation, or a decline.' }
+    ],
+    footer: {
+      line: 'Synergis — synergy between businesses: products and advisory that connect people, traffic, and processes.',
+      meta: 'Kyiv · Lviv · Odesa'
+    }
+  }
+};
+
+class Component extends DCLogic {
+  state = { lang: 'ua', route: '/', sent: false };
+
+  componentDidMount() { this.applyTheme(); }
+  componentDidUpdate() { this.applyTheme(); }
+
+  applyTheme() {
+    const r = document.documentElement.style;
+    r.setProperty('--accent', this.props.accent ?? '#047857');
+    r.setProperty('--display', (this.props.displayFont ?? 'serif') === 'serif'
+      ? "'Literata', Georgia, serif"
+      : "'Archivo', 'Manrope', sans-serif");
+  }
+
+  nav(route) {
+    return (e) => {
+      if (e) e.preventDefault();
+      this.setState({ route, sent: false });
+      window.scrollTo(0, 0);
+    };
+  }
+
+  renderVals() {
+    const lang = this.state.lang;
+    const t = COPY[lang];
+    const route = this.state.route;
+    const item = (key, href) => ({
+      label: t.nav[key], href,
+      go: this.nav(href),
+      color: route === href ? '#15232c' : 'rgba(21,35,44,0.62)',
+      rule: route === href ? 'var(--accent, #047857)' : 'transparent'
+    });
+    return {
+      t,
+      navItems: [item('home', '/'), item('platform', '/platform'), item('advisory', '/advisory'), item('approach', '/approach'), item('contact', '/contact')],
+      atHome: route === '/',
+      atPlatform: route === '/platform',
+      atAdvisory: route === '/advisory',
+      atApproach: route === '/approach',
+      atContact: route === '/contact',
+      edge: this.props.signalEdge ?? true,
+      goHome: this.nav('/'),
+      goPlatform: this.nav('/platform'),
+      goContact: this.nav('/contact'),
+      setUa: (e) => { e.preventDefault(); this.setState({ lang: 'ua' }); },
+      setEn: (e) => { e.preventDefault(); this.setState({ lang: 'en' }); },
+      uaColor: lang === 'ua' ? '#15232c' : 'rgba(21,35,44,0.4)',
+      enColor: lang === 'en' ? '#15232c' : 'rgba(21,35,44,0.4)',
+      mechanics: t.mechanics,
+      wins: t.wins,
+      seeItems: t.seeItems,
+      advisoryBlocks: t.advisoryBlocks,
+      bridgeSteps: t.bridgeSteps,
+      steps: t.steps,
+      fields: t.fields,
+      nextSteps: t.nextSteps,
+      sentNote: this.state.sent ? t.contact.sent : t.contact.idle,
+      onSubmit: (e) => { e.preventDefault(); this.setState({ sent: true }); }
+    };
+  }
+}
+</script>
+</body>
+</html>
